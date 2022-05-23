@@ -4,11 +4,16 @@
 <div class="bg-slate-200 px-20 flex justify-center py-8 mb-2">
 
 <%= form_with(url: articles_path, method: :get, 
-  data: { turbo_frame: "articles", turbo_action: "advance"} ) do |form| %>
+  data: { controller: "search-form", turbo_frame: "articles", turbo_action: "advance"} ) do |form| %>
+
   <%= form.label :query, 'Search by article title', class:"block mb-2"%>
+
   <%= form.text_field :query,
-  class:"py-3 px-4 rounded border ring-0 focus:ring-4 focus:ring-orange-100 focus:shadow-none focus:border-orange-500 focus:outline-none"
+    class:"py-3 px-4 rounded border ring-0 focus:ring-4 focus:ring-orange-100 focus:shadow-none focus:border-orange-500 focus:outline-none",
+    data: { action: "input->search-form#search"}
+    
   %>
+
   <%= form.submit "Search",
    class: "ml-10 px-6 py-4 text-lg bg-orange-200 hover:bg-orange-300 rounded hover:text-slate-800 hover:drop-shadow-lg hover:cursor-pointer" %>
 <% end %>

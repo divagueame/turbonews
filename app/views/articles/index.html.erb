@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1 class="text-4xl text-center py-6">Articles</h1>
+
+<div id="articles">
+  <% @articles.each do |article| %>
+      <%= link_to article do %>
+        <%= render article %>
+      <% end %>
+    <br>
+  <% end %>
+</div>
+
+<%= link_to "New article", new_article_path %>

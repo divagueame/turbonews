@@ -1,6 +1,16 @@
 <p style="color: green"><%= notice %></p>
 
 <h1 class="text-4xl text-center py-6">Articles</h1>
+<div class="bg-slate-200 px-20 flex justify-center py-8 mb-2">
+
+<%= form_with(url: articles_path, method: :get, 
+  data: { turbo_frame: "articles" } ) do |form| %>
+  <%= form.label :query, 'Search by article title', class:"block mb-2"%>
+  <%= form.text_field :query,
+  class:"py-3 px-4 rounded border ring-0 focus:ring-4 focus:ring-orange-400 focus:shadow-none focus:border-orange-500 focus:outline-none"
+  %>
+<% end %>
+</div>
 
 <div id="articles">
   <% @articles.each do |article| %>

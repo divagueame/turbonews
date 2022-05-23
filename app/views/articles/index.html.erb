@@ -1,18 +1,24 @@
-<p style="color: green"><%= notice %></p>
+<p style="color: green"><%= notice %></p> 
 
-<h1 class="text-4xl text-center py-6">Articles</h1>
+<h1 class="font-bold text-4xl text-center py-6">Articles</h1>
 <div class="bg-slate-200 px-20 flex justify-center py-8 mb-2">
 
 <%= form_with(url: articles_path, method: :get, 
-  data: { turbo_frame: "articles" } ) do |form| %>
+  data: { turbo_frame: "articles", turbo_action: "advance"} ) do |form| %>
   <%= form.label :query, 'Search by article title', class:"block mb-2"%>
   <%= form.text_field :query,
-  class:"py-3 px-4 rounded border ring-0 focus:ring-4 focus:ring-orange-400 focus:shadow-none focus:border-orange-500 focus:outline-none"
+  class:"py-3 px-4 rounded border ring-0 focus:ring-4 focus:ring-orange-100 focus:shadow-none focus:border-orange-500 focus:outline-none"
   %>
+  <%= form.submit "Search",
+   class: "ml-10 px-6 py-4 text-lg bg-orange-200 hover:bg-orange-300 rounded hover:text-slate-800 hover:drop-shadow-lg hover:cursor-pointer" %>
 <% end %>
 </div>
 
-<div id="articles">
+<div class="my-16">
+  <%= render "articles", articles: @articles %>
+</div>
+
+<div id="articles" class="hidden">
   <% @articles.each do |article| %>
       <%= link_to article do %>
         <%= render article %>
@@ -21,4 +27,4 @@
   <% end %>
 </div>
 
-<%= link_to "New article", new_article_path %>
+<%= link_to "New article", new_article_path, class: "ml-10 px-6 py-4 text-lg bg-slate-200 hover:bg-slate-500 rounded hover:text-slate-200 hover:drop-shadow-lg" %>

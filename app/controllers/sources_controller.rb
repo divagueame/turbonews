@@ -1,3 +1,7 @@
+
+require 'nokogiri'
+require 'open-uri'
+
 class SourcesController < ApplicationController
   before_action :set_source, only: %i[ show edit update destroy ]
 
@@ -6,6 +10,32 @@ class SourcesController < ApplicationController
     @sources = Source.all
   end
 
+  def scrap
+    Source.all.each do |source|
+      id = source.id
+      url = source.url
+      selector = source.selector
+      relative_url = source.relative_url
+
+      html = URI.open(source.url.to_s).read
+      header = Nokogiri::HTML(html)
+      header.css(selector).each do |piece|
+        @article = Article.new
+        @article.header = piece.text
+        @article.url = piece.attribute('href').value
+        @article.source_id = source.id
+
+          if(@article.valid?)
+            @article.save
+          else
+            p 'Article not saved'
+          end
+        end
+    end
+  end
+   
+
+ 
   # GET /sources/1 or /sources/1.json
   def show
   end
@@ -26,10 +56,8 @@ class SourcesController < ApplicationController
     respond_to do |format|
       if @source.save
         format.html { redirect_to source_url(@source), notice: "Source was successfully created." }
-        format.json { render :show, status: :created, location: @source }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @source.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -39,10 +67,8 @@ class SourcesController < ApplicationController
     respond_to do |format|
       if @source.update(source_params)
         format.html { redirect_to source_url(@source), notice: "Source was successfully updated." }
-        format.json { render :show, status: :ok, location: @source }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @source.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -53,7 +79,6 @@ class SourcesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to sources_url, notice: "Source was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
@@ -65,6 +90,6 @@ class SourcesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def source_params
-      params.require(:source).permit(:name, :url)
+      params.require(:source).permit(:name, :url, :selector, :relative_url)
     end
 end

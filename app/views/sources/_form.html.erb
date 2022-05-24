@@ -11,17 +11,29 @@
     </div>
   <% end %>
 
-  <div>
+  <div class="p-1">
     <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class:"p-2 bg-slate-200 border-2 border-2 border-slate-800" %>
   </div>
 
-  <div>
+  <div class="p-1">
     <%= form.label :url, style: "display: block" %>
-    <%= form.text_field :url %>
+    <%= form.text_field :url, class:"p-2 bg-slate-200 border-2 border-2 border-slate-800" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+
+  <div class="p-1">
+    <%= form.label :selector, style: "display: block" %>
+    <%= form.text_field :selector,  class:"p-2 bg-slate-200 border-2 border-2 border-slate-800" %>
+  </div>
+
+
+  <div class="p-1">
+    <%= form.label :relative_url, style: "display: block" %>
+    <%= form.check_box :relative_url,  class:"p-2 bg-slate-200 border-2 border-2 border-slate-800" %>
+  </div>
+
+  <div class="p-1">
+    <%= form.submit  class:" p-2 bg-slate-200 border-2 border-2 border-slate-800" %>
   </div>
 <% end %>

@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
-
+belongs_to :source
 include PgSearch::Model
 
 pg_search_scope :search_all, against: {

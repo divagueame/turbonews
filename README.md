@@ -1,6 +1,8 @@
 # README
 Search the latests news
+
 Created by Martin Arce
+
 Date: May 2022
 
 # Description
@@ -15,11 +17,14 @@ Articles have tags associated to them.
 
 # Selectors for reference:
 El Pais:
+
 www.elpais.com
 article h2 a
 relative_url: true
 
+
 El Mundo
+
 www.elmundo.es
 article a#ue-c-cover-content__link
 relative_url: false

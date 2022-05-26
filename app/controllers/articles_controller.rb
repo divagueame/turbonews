@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[ show edit update destroy ]
+  before_action :set_article, only: %i[ show edit update destroy scrape_article]
 
   # GET /articles or /articles.json
   def index
@@ -66,13 +66,25 @@ class ArticlesController < ApplicationController
   end
 
   def scrape_article
-    p params
+    # article_id = params[:id].to_i
+    # @article = Article.find(params[:id])
+    get_article_url(@article)
+    if(@article.browsed)
+
+    else
+
+    end
+    # p @article
     p 'YEAS'
     puts "\n"
     puts "\n"
   end
 
   private
+    def scrape_body(html)
+
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_article
       @article = Article.find(params[:id])
@@ -82,4 +94,13 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:header, :body, :url)
     end
+
+    def get_article_url(article)
+      source = article.source
+      if source.relative_url
+          source.url + article.url
+      else
+          p  article.url
+      end
+  end
 end

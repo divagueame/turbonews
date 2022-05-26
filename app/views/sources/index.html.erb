@@ -1,18 +1,20 @@
-<p style="color: green"><%= notice %></p>
-<div class="container bg-slate-200">
-  <h1 class="text-3xl">Sources</h1>
+<div class="container">
+   <p style="color: green"><%= notice %></p>
+  <div class="container bg-slate-200">
+    <h1 class="text-3xl">Sources</h1>
 
-  <div id="sources" class="p-2">
-    <% @sources.each do |source| %>
-    <div class="border-2 border-slate-400 p-2 mb-4">
-      <%= render source %>
-      <p>
-        <%= link_to "Show this source", source, class:"p-2 bg-slate-400" %>
-      </p>
+    <div id="sources" class="p-2">
+      <% @sources.each do |source| %>
+      <div class="border-2 border-slate-400 p-2 mb-4">
+        <%= render source %>
+        <p>
+          <%= link_to "Show this source", source, class:"p-2 bg-slate-400" %>
+        </p>
+      </div>
+      <% end %>
     </div>
-    <% end %>
+
+
   </div>
-
-
-</div>
   <%= link_to "New source", new_source_path %>
+</div>

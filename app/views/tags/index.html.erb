@@ -1,0 +1,18 @@
+<div class="container">
+   
+   <p style="color: green"><%= notice %></p>
+
+<h1>Tags</h1>
+ <button type="button" class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">Primary</button>
+<div id="tags">
+  <% @tags.each do |tag| %>
+    <%= render tag %>
+    <p>
+      <%= link_to "Show this tag", tag %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New tag", new_tag_path %>
+
+    </div>

@@ -34,3 +34,32 @@ relative_url: false
 
 # Other info
 Some news sites link their articles with an absolute path or relative one. Therefore, there's a flag "relative_url" called  to indicate that.
+
+
+# Database structure
+Intent:
+    Sources are newspapers in which there are many articles.
+    Articles have one or several associated Tags which describe the topic of that article.
+    Tags are generated through the most common words in the article.
+    Admins can add Tags manually through the admin panel.
+
+Source
+    name
+    url
+    selector
+    relative_url
+
+Article
+    header
+    body
+    url
+    browsed
+
+Tags
+    name
+    active
+
+Terms
+    name
+    discarded
+    active

@@ -1,4 +1,7 @@
 class Article < ApplicationRecord
+    validates :url, uniqueness: true
+    validates :header, presence: true
+
 belongs_to :source
 include PgSearch::Model
 

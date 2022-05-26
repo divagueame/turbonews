@@ -27,6 +27,7 @@ class SourcesController < ApplicationController
 
           if(@article.valid?)
             @article.save
+            p "Article saved"
           else
             p 'Article not saved'
           end

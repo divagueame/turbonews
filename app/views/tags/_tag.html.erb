@@ -1,12 +1,6 @@
-<div id="<%= dom_id tag %>">
+<div id="<%= dom_id tag %>" class="bg-blue-400 rounded-xl p-3 <%= 'bg-blue-100' if !tag.active %>">
   <p>
-    <strong>Name:</strong>
-    <%= tag.name %>
+    <strong><%= tag.name %></strong>  
   </p>
-
-  <p>
-    <strong>Active:</strong>
-    <%= tag.active %>
-  </p>
-
+  <%= show_active_state(tag) %>
 </div>

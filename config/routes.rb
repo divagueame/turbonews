@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'admin', to: 'admin#index'
   resources :tags
   resources :sources
   resources :articles

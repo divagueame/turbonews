@@ -1,3 +1,4 @@
+<div class="container">
 <h1>New tag</h1>
 
 <%= render "form", tag: @tag %>
@@ -5,5 +6,7 @@
 <br>
 
 <div>
-  <%= link_to "Back to tags", tags_path %>
+  <%= link_to "Back to tags", tags_path, class: "btn-rounded " %>
+</div>
+
 </div>

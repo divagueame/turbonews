@@ -3,16 +3,14 @@
    <p style="color: green"><%= notice %></p>
 
 <h1>Tags</h1>
- <button type="button" class="inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">Primary</button>
-<div id="tags">
+<div id="tags" class="flex">
   <% @tags.each do |tag| %>
-    <%= render tag %>
-    <p>
-      <%= link_to "Show this tag", tag %>
-    </p>
+      <%= link_to tag, class: "p-5 mb-8" do %>
+        <%= render tag %>
+      <% end %>
+    
   <% end %>
 </div>
-
-<%= link_to "New tag", new_tag_path %>
-
-    </div>
+<br><br>
+<%= link_to "New tag", new_tag_path, class: "btn-rounded" %>
+</div>

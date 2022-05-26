@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :tags
   resources :sources
   resources :articles
-  get '/scrap', to: 'sources#scrap'
+  get '/scrape-all', to: 'sources#scrape_all'
+  get '/articles/scrape/[:id]', to: 'articles#scrape_article'
   root "articles#index"
 end

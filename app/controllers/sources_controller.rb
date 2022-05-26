@@ -9,11 +9,11 @@ class SourcesController < ApplicationController
     @sources = Source.all
   end
 
-  def scrap
+  def scrape_all
     reports = []
     Source.all.each do |source|
-      scrap_report = scrap_source(source)
-      reports.push(scrap_report)
+      scrape_report = scrape_source(source)
+      reports.push(scrape_report)
     end
     
     # Reports of the scraping
@@ -72,7 +72,7 @@ class SourcesController < ApplicationController
 
   private
 
-  def scrap_source(source)
+  def scrape_source(source)
     report = {:source_name=> source.name, :not_saved => 0, :saved => 0}
  
     id = source.id

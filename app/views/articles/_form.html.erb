@@ -25,6 +25,10 @@
     <%= form.label :url, style: "display: block" %>
     <%= form.text_field :url %>
   </div>
+  
+  <div>
+    <%= form.collection_select :source_id, Source.order(:name), :id, :name %>
+  </div>
 
   <div>
     <%= form.submit %>

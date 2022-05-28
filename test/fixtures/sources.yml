@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-El Pais:
+el_pais:
   name: El Pais
-  url: www.elpais.com
+  url: http://www.elpais.com
   selector: article h2 a
   relative_url: true
 
-El Mundo:
+el_mundo:
   name: El Mundo
-  url: www.elmundo.es
+  url: http://www.elmundo.es
   selector: article a#ue-c-cover-content__link
   relative_url: false

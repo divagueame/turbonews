@@ -2,7 +2,7 @@ require "test_helper"
 
 class SourcesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @source = sources(:one)
+    @source = sources(:el_pais)
   end
 
   test "should get index" do

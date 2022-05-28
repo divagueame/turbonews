@@ -25,6 +25,7 @@ class SourcesController < ApplicationController
     end
   
     puts "\n"
+    redirect_to :articles
   end
 
   def show; end

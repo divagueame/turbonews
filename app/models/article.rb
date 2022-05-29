@@ -12,10 +12,10 @@ class Article < ApplicationRecord
     header: 'A',
     body: 'B'
   },
-                               using: { tsearch: { prefix: true, any_word: true } }
+  using: { tsearch: { prefix: true, any_word: true } }
 
   pg_search_scope :search_header, against: {
     header: 'A'
   },
-                                  using: { tsearch: { prefix: true, any_word: false } }
+  using: { tsearch: { prefix: true, any_word: false } }
 end

@@ -25,11 +25,9 @@ class TagsController < ApplicationController
 
     respond_to do |format|
       if @tag.save
-        format.html { redirect_to tag_url(@tag), notice: "Tag was successfully created." }
-        format.json { render :show, status: :created, location: @tag }
+        format.html { redirect_to tags_url, notice: "Tag was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -39,10 +37,8 @@ class TagsController < ApplicationController
     respond_to do |format|
       if @tag.update(tag_params)
         format.html { redirect_to tag_url(@tag), notice: "Tag was successfully updated." }
-        format.json { render :show, status: :ok, location: @tag }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
       end
     end
   end

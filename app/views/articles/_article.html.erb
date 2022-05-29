@@ -1,4 +1,5 @@
 <div id="<%= dom_id article %>">
+  <div>Tags: </div><%= show_article_tags(article) %>
   <p class="text-xl p-2 px-14 bg-blue-200">
     <%= link_to article.header, article_path(article), data: { turbo: false }  %>
   </p>

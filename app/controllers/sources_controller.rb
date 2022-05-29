@@ -9,7 +9,7 @@ class SourcesController < ApplicationController
     @sources = Source.all
   end
 
-  def scrape_all
+  def scrape_sources
     reports = []
     Source.all.each do |source|
       scrape_report = scrape_source(source)

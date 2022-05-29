@@ -3,15 +3,13 @@ require 'open-uri'
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy scrape_article]
 
-  # GET /articles or /articles.json
   def index
     @articles = if params[:query].present?
       # @articles = Article.where("header LIKE ?", "#{params[:query]}%")
       Article.search_all(params[:query].to_s)
-
-                else
-                  Article.all
-                end
+      else
+        Article.all
+      end
 
     if turbo_frame_request?
       render partial: 'articles', locals: { articles: @articles }
@@ -20,18 +18,16 @@ class ArticlesController < ApplicationController
     end
   end
 
-  # GET /articles/1 or /articles/1.json
   def show; end
 
-  # GET /articles/new
   def new
     @article = Article.new
   end
 
-  # GET /articles/1/edit
+ 
   def edit; end
 
-  # POST /articles or /articles.json
+ 
   def create
     @article = Source.first.articles.new(article_params)
 
@@ -44,7 +40,7 @@ class ArticlesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /articles/1 or /articles/1.json
+  
   def update
     respond_to do |format|
       if @article.update(article_params)
@@ -54,8 +50,7 @@ class ArticlesController < ApplicationController
       end
     end
   end
-
-  # DELETE /articles/1 or /articles/1.json
+  
   def destroy
     @article.destroy
 
@@ -67,28 +62,29 @@ class ArticlesController < ApplicationController
 
   def scrape_article
     get_article_url(@article)
-    if @article.browsed
-      p 'Already browsed. Skip'
-    else
-      p 'Never browser'
-      article_url = get_article_url(@article)
+      return unless !@article.browsed
+      article_url = get_article_url(@article) # Verifies the url is valid
+      return unless article_url
 
+      # Scrape HTML
       html = URI.open(article_url).read
       html = Nokogiri::HTML.parse(html)
       retrieved_title = html.title
       retrieved_paragraphs = html.css('article p')
       retrieved_paragraphs = retrieved_paragraphs.map { |paragraph| paragraph.text }
 
+      # Report Scrape
       total_words_count = 0
       retrieved_paragraphs.each { |piece| total_words_count += piece.split.size }
-
       puts 'Total Words Count'
       p total_words_count
-      p article_url
-      puts "\n"
-      puts retrieved_paragraphs
-
-    end
+      
+      body_string = ""
+      retrieved_paragraphs.each { |paragraph| body_string += (paragraph + "\n") }
+      
+      @article.browsed = true
+      @article.body = body_string
+      @article.save
   end
 
   private

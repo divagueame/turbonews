@@ -1,6 +1,9 @@
 <p style="color: green"><%= notice %></p> 
 
-<h1 class="font-bold text-4xl text-center py-6">Articles</h1>
+<div class="py-6">
+  <h1 class="font-bold text-4xl text-center">Articles</h1>
+  <h4 class="text-center mb-2 font-bold"><%= Article.all.count %></h4>
+</div>
 <div class="bg-slate-200 px-20 flex justify-center py-8 mb-2">
 
 <%= form_with(url: articles_path, method: :get, 

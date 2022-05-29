@@ -15,7 +15,7 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create tag" do=begin  =end
+  test "should create tag" do
     assert_difference("Tag.count") do
       post tags_url, params: { tag: { name: 'cars' } }
     end

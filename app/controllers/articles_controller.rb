@@ -1,3 +1,5 @@
+require 'nokogiri'
+require 'open-uri'
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy scrape_article]
 
@@ -71,12 +73,21 @@ class ArticlesController < ApplicationController
     # @article = Article.find(params[:id])
     get_article_url(@article)
     if(@article.browsed)
-
+      p 'Already browsed. Skip'
     else
+      p 'Never browser'
+      article_url = get_article_url(@article)
 
+      html = URI.open(article_url).read
+      retrieved_data = Nokogiri::HTML(html)
+      p 'retrieved_data: '
+      p retrieved_data
+      puts "\n"
+      puts "\n"
+      puts "\n"
+      
     end
-    # p @article
-    p 'YEAS'
+    
     puts "\n"
     puts "\n"
   end
@@ -96,12 +107,20 @@ class ArticlesController < ApplicationController
       params.require(:article).permit(:header, :body, :url, :source_id)
     end
 
+    def valid_url?(url)
+      (url[0,3] === 'htt') || (url[0,3] === 'www')? true : false
+    end
+
     def get_article_url(article)
-      source = article.source
-      if source.relative_url
-          source.url + article.url
-      else
-          p  article.url
+      if valid_url?(article.url)
+        article.url
+      elsif(valid_url?(article.source.url + article.url))
+        article.source.url + article.url
+      else 
+        p 'ERROR. Not available url'
+        p article.source.url
+        p article.url
+        nil
       end
     end
 end

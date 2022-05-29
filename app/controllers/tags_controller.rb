@@ -28,7 +28,6 @@ class TagsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tags/1 or /tags/1.json
   def update
     respond_to do |format|
       if @tag.update(tag_params)
@@ -50,12 +49,10 @@ class TagsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_tag
       @tag = Tag.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def tag_params
       params.require(:tag).permit(:name, :active)
     end

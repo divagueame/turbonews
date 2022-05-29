@@ -5,7 +5,7 @@ module ArticlesHelper
         if controller_name == 'articles' && action_name == 'show'
             html = ""
             article.tags.each do |tag|
-                html += "<h1>#{tag.name}</h1>"
+                html += "<div class='btn-tag'>#{tag.name}</div>"
             end
             
           content << html

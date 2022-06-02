@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'open-uri'
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[show edit update destroy scrape_article]
+  before_action :set_article, only: %i[show edit update destroy]
 
   def index
     @articles = if params[:query].present?
@@ -50,6 +50,29 @@ class ArticlesController < ApplicationController
       end
     end
 
+    if params['get_tags']
+      @article_tag = ArticleTag.find_or_initialize_by(article_id: @article.id)
+      @article_tag.tag_id = 1
+      p 'Got so far'
+      p @article_tag 
+      p @article_tag.valid?
+      p @article_tag.errors
+      p 'Got so far'
+      # @article_tag.update_attributes!(params_for_create_or_update)
+      # flash[:notice] = 'Article Tags updated'
+      # redirect_to action: :show
+
+      if @article_tag.valid?
+        @article_tag.save
+        return redirect_to article_path(@article), notice: 'Tag updated'
+      else
+        # return redirect_to articles_path, notice: 'Error! Body could not be scanned'
+      end
+
+
+
+    end
+
     respond_to do |format|
       if @article.update(article_params)
         format.html { redirect_to article_url(@article), notice: 'Article was successfully updated.' }
@@ -70,15 +93,13 @@ class ArticlesController < ApplicationController
 
   private
 
-  def scrape_body(html); end
-
   def set_article
     @article = Article.find(params[:id])
   end
 
   def article_params
-    # p 'ARTICLE PARAMS:'
-    #  p params
+    # p 'AND :'
+    # p params
     params.require(:article).permit(:header, :body, :url, :source_id, :browsed)
   end
 

@@ -26,7 +26,7 @@ module ArticlesHelper
   def update_tags_btn(article)
     return unless article.browsed && controller_name == 'articles' && action_name == 'show'
     button_to 'Update tags', article_path(article), method: :patch, data: { turbo: false },
-    params: { 'full_scrape' => true }
+    params: { 'get_tags' => true }
   end
 
 end

@@ -2,7 +2,7 @@ require "application_system_test_case"
 
 class SourcesTest < ApplicationSystemTestCase
   setup do
-    @source = sources(:one)
+    @source = sources(:el_pais)
   end
 
   test "visiting the index" do

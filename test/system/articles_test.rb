@@ -14,9 +14,9 @@ class ArticlesTest < ApplicationSystemTestCase
     visit articles_url
     click_on "New article"
 
-    fill_in "Body", with: @article.body
-    fill_in "Header", with: @article.header
-    fill_in "Url", with: @article.url
+    fill_in "Body", with: 'ChikiBody'
+    fill_in "Header", with: 'Chikiheader'
+    fill_in "Url", with: 'ChikiUrl'
     click_on "Create Article"
 
     assert_text "Article was successfully created"

@@ -5,11 +5,11 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = if params[:query].present?
-      # @articles = Article.where("header LIKE ?", "#{params[:query]}%")
-      Article.search_all(params[:query].to_s)
-      else
-        Article.all
-      end
+                  # @articles = Article.where("header LIKE ?", "#{params[:query]}%")
+                  Article.search_all(params[:query].to_s)
+                else
+                  Article.all
+                end
 
     if turbo_frame_request?
       render partial: 'articles', locals: { articles: @articles }
@@ -24,10 +24,8 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
- 
   def edit; end
 
- 
   def create
     @article = Source.first.articles.new(article_params)
 
@@ -40,14 +38,11 @@ class ArticlesController < ApplicationController
     end
   end
 
-  
   def update
-    if(params['full_scrape'])
-      p "Full Scrape"
-      retrieved_body = get_article_body(@article)
-      @article.body = retrieved_body
+    if params['full_scrape']
+      @article.body = get_article_body(@article)
       @article.browsed = true
-      if(@article.valid?)
+      if @article.valid?
         @article.save
         return redirect_to articles_path, notice: 'Body scanned properly'
       else
@@ -63,7 +58,7 @@ class ArticlesController < ApplicationController
       end
     end
   end
-  
+
   def destroy
     @article.destroy
 
@@ -72,7 +67,6 @@ class ArticlesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
 
   private
 
@@ -105,32 +99,29 @@ class ArticlesController < ApplicationController
     end
   end
 
-
-
   def get_article_body(article)
     get_article_url(article)
-      return unless !article.browsed
-      article_url = get_article_url(article) # Verifies the url is valid
-      return unless article_url
+    return if article.browsed
 
-      # Scrape HTML
-      html = URI.open(article_url).read
-      html = Nokogiri::HTML.parse(html)
-      retrieved_title = html.title
-      retrieved_paragraphs = html.css('article p')
-      retrieved_paragraphs = retrieved_paragraphs.map { |paragraph| paragraph.text }
+    article_url = get_article_url(article) # Verifies the url is valid
+    return unless article_url
 
-      # Report Scrape
-      total_words_count = 0
-      retrieved_paragraphs.each { |piece| total_words_count += piece.split.size }
-      puts 'Total Words Count'
-      p total_words_count
-      
-      body_string = "CORRECT BODY"
-      retrieved_paragraphs.each { |paragraph| body_string += (paragraph + "\n") }
-      
-      body_string
+    # Scrape HTML
+    html = URI.open(article_url).read
+    html = Nokogiri::HTML.parse(html)
+    retrieved_title = html.title
+    retrieved_paragraphs = html.css('article p')
+    retrieved_paragraphs = retrieved_paragraphs.map { |paragraph| paragraph.text }
+
+    # Report Scrape
+    total_words_count = 0
+    retrieved_paragraphs.each { |piece| total_words_count += piece.split.size }
+    puts 'Total Words Count'
+    p total_words_count
+
+    body_string = ''
+    retrieved_paragraphs.each { |paragraph| body_string += (paragraph + "\n") }
+
+    body_string
   end
-
-  
 end

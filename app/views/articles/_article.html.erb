@@ -1,4 +1,4 @@
-<div id="<%= dom_id article %>">
+<div id="<%= dom_id article %>" class='container'>
 
   <%= show_article_tags(article) %>
   <p class="text-xl p-2 px-14 bg-blue-200">
@@ -6,6 +6,7 @@
   </p>
   
   <%= scrape_btn(article) %>
+  <%= update_tags_btn(article) %>
   <%= article_body(article) %>
 
 </div>

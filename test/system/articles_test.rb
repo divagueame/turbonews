@@ -18,8 +18,23 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Articles", count: 0
     assert_text @article.header
     assert_selector ".scrape_btn", count: 1
+    assert_selector ".update_tags_btn", count: 0
 
   end
+
+
+  test "show article and updated tags button if article was already scraped" do
+    visit articles_url
+    assert_selector "h1", text: "Articles"
+    
+    click_on articles(:two).header
+    assert_selector "h1", text: "Articles", count: 0
+    assert_text articles(:two).header
+    assert_selector ".scrape_btn", count: 0
+    assert_selector ".update_tags_btn", count: 1
+
+  end
+
 
   test "should create article" do
     visit articles_url

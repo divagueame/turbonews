@@ -53,20 +53,21 @@ class ArticlesController < ApplicationController
     if params['get_tags']
       @article_tag = ArticleTag.find_or_initialize_by(article_id: @article.id)
       @article_tag.tag_id = 1
-      p 'Got so far'
-      p @article_tag 
-      p @article_tag.valid?
-      p @article_tag.errors
-      p 'Got so far'
+      # p 'Got so far'
+      # p @article_tag 
+      # p @article_tag.valid?
+      # p @article_tag.errors
+      # p 'Got so far'
       # @article_tag.update_attributes!(params_for_create_or_update)
       # flash[:notice] = 'Article Tags updated'
       # redirect_to action: :show
-
+      get_article_tags(@article)
       if @article_tag.valid?
         @article_tag.save
         return redirect_to article_path(@article), notice: 'Tag updated'
       else
-        # return redirect_to articles_path, notice: 'Error! Body could not be scanned'
+        # render :show
+        return redirect_to articles_path, notice: 'Error! Body could not be scanned'
       end
 
 
@@ -148,6 +149,7 @@ class ArticlesController < ApplicationController
 
   def get_article_tags(article)
     p 'Article tags init'
+    p article.body
   end
 
 end

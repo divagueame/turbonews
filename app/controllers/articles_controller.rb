@@ -147,6 +147,8 @@ class ArticlesController < ApplicationController
 
   def get_article_tags(article)
     p 'Article tags init'
-    p article.body
+    p Tag.last
+    p Tag.last.terms.first.name 
+    # p article.body
   end
 end

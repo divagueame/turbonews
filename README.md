@@ -63,3 +63,13 @@ Terms
     name
     discarded
     active
+
+Associations
+    Sources have many articles
+    Article Belongs to a source
+
+    Articles have many Tags
+    Tags have many articles
+
+    Tags have many Terms
+    Terms have many Tags

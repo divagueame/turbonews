@@ -10,6 +10,17 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Articles"
   end
 
+  test "show article and scrape button if article was never scraped" do
+    visit articles_url
+    assert_selector "h1", text: "Articles"
+    
+    click_on @article.header
+    assert_selector "h1", text: "Articles", count: 0
+    assert_text @article.header
+    assert_selector ".scrape_btn", count: 1
+
+  end
+
   test "should create article" do
     visit articles_url
     click_on "New article"

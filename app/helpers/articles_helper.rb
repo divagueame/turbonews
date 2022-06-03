@@ -14,7 +14,7 @@ module ArticlesHelper
 
   def scrape_btn(article)
     return unless controller_name == 'articles' && action_name == 'show' && article.browsed
-      button_to 'Scrape this article', article_path(article), method: :patch, data: { turbo: false },
+      button_to 'Scrape this article', article_path(article), class: "scrape_btn" ,method: :patch, data: { turbo: false },
                                                               params: { 'full_scrape' => true }
   end
 

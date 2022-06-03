@@ -145,4 +145,9 @@ class ArticlesController < ApplicationController
 
     body_string
   end
+
+  def get_article_tags(article)
+    p 'Article tags init'
+  end
+
 end

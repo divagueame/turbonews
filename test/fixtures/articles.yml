@@ -2,8 +2,10 @@ one:
   header: The amazing features of a dog
   url: /load/new.t
   source_id: 1
+  browsed: false
 
 two:
   header: Amazingness
   url: /asdf/fasdf/asdw
   source_id: 2
+  browsed: true

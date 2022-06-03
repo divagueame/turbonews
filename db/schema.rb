@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_26_172714) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_03_184252) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_172714) do
     t.boolean "relative_url", default: false
   end
 
+  create_table "tag_terms", force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "term_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_tag_terms_on_tag_id"
+    t.index ["term_id"], name: "index_tag_terms_on_term_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.boolean "active", default: true
@@ -52,7 +61,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_172714) do
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
+  create_table "terms", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "article_tags", "articles"
   add_foreign_key "article_tags", "tags"
   add_foreign_key "articles", "sources"
+  add_foreign_key "tag_terms", "tags"
+  add_foreign_key "tag_terms", "terms"
 end

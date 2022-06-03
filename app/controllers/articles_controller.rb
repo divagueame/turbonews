@@ -54,7 +54,7 @@ class ArticlesController < ApplicationController
       @article_tag = ArticleTag.find_or_initialize_by(article_id: @article.id)
       @article_tag.tag_id = 1
       # p 'Got so far'
-      # p @article_tag 
+      # p @article_tag
       # p @article_tag.valid?
       # p @article_tag.errors
       # p 'Got so far'
@@ -69,8 +69,6 @@ class ArticlesController < ApplicationController
         # render :show
         return redirect_to articles_path, notice: 'Error! Body could not be scanned'
       end
-
-
 
     end
 
@@ -151,5 +149,4 @@ class ArticlesController < ApplicationController
     p 'Article tags init'
     p article.body
   end
-
 end

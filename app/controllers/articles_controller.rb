@@ -6,6 +6,7 @@ class ArticlesController < ApplicationController
 
   def index
     get_article_tags(Article.find(11))
+
     # @articles = if params[:query].present?
     #               # @articles = Article.where("header LIKE ?", "#{params[:query]}%")
     #               Article.search_all(params[:query].to_s)
@@ -63,7 +64,7 @@ class ArticlesController < ApplicationController
       # @article_tag.update_attributes!(params_for_create_or_update)
       # flash[:notice] = 'Article Tags updated'
       # redirect_to action: :show
-      get_article_tags(@article)
+      get_article_terms(@article)
       if @article_tag.valid?
         @article_tag.save
         return redirect_to article_path(@article), notice: 'Tag updated'
@@ -88,7 +89,6 @@ class ArticlesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to articles_url, notice: 'Article was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -99,8 +99,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    # p 'AND :'
-    # p params
     params.require(:article).permit(:header, :body, :url, :source_id, :browsed)
   end
 
@@ -147,18 +145,36 @@ class ArticlesController < ApplicationController
     body_string
   end
 
-  def get_article_tags(article)
-    # p article.bod
-    # Creates dictionary of the article body
+  # Creates dictionary of the article body
+  def get_article_body_dictionary(article)
     words_count = {}
     words_array = article.body.downcase.split(/[,\s]+/).select { |word| word.length >= 3 }
     words_array.each { |word| words_count[word] ? words_count[word] += 1 : words_count[word] = 1 }
-    body_words = words_count.keys
-    
-    terms_found = Term.where(name: body_words)
-    p 'Found: '
-    p terms_found.count
-    p " \n"
-    
+    words_count
+  end
+
+  # Finds Common terms with the article body dictionary. Takes an array of strings
+  def get_article_terms(terms)
+    Term.where(name: terms)
+  end
+
+  # Returns a hash with a counter of terms ocurrences
+  def get_article_tags(article)
+    tags = {}
+    dictionary = get_article_body_dictionary(article)
+    terms = get_article_terms(dictionary.keys)
+    terms.each do |term|
+      next unless dictionary.keys.include?(term.name)
+
+      term.tags.each do |tag|
+        if tags[tag.id]
+          tags[tag.id] += dictionary[term.name]
+        else
+          tags[tag.id] = dictionary[term.name]
+        end
+      end
+    end
+
+    tags
   end
 end

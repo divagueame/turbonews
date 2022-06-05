@@ -1,21 +1,23 @@
 require 'nokogiri'
 require 'open-uri'
+require 'set'
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
 
   def index
-    @articles = if params[:query].present?
-                  # @articles = Article.where("header LIKE ?", "#{params[:query]}%")
-                  Article.search_all(params[:query].to_s)
-                else
-                  Article.all
-                end
+    get_article_tags(Article.find(11))
+    # @articles = if params[:query].present?
+    #               # @articles = Article.where("header LIKE ?", "#{params[:query]}%")
+    #               Article.search_all(params[:query].to_s)
+    #             else
+    #               Article.all
+    #             end
 
-    if turbo_frame_request?
-      render partial: 'articles', locals: { articles: @articles }
-    else
-      render :index
-    end
+    # if turbo_frame_request?
+    #   render partial: 'articles', locals: { articles: @articles }
+    # else
+    #   render :index
+    # end
   end
 
   def show; end
@@ -146,9 +148,17 @@ class ArticlesController < ApplicationController
   end
 
   def get_article_tags(article)
-    p 'Article tags init'
-    p Tag.last
-    p Tag.last.terms.first.name 
-    # p article.body
+    # p article.bod
+    # Creates dictionary of the article body
+    words_count = {}
+    words_array = article.body.downcase.split(/[,\s]+/).select { |word| word.length >= 3 }
+    words_array.each { |word| words_count[word] ? words_count[word] += 1 : words_count[word] = 1 }
+    body_words = words_count.keys
+    
+    terms_found = Term.where(name: body_words)
+    p 'Found: '
+    p terms_found.count
+    p " \n"
+    
   end
 end

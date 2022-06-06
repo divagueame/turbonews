@@ -54,7 +54,6 @@ class ArticlesController < ApplicationController
     if params['get_tags']
       @article_tag = ArticleTag.find_or_initialize_by(article_id: @article.id)
       tags = get_article_tags(@article)
-      p @article.tags
       tags.each do |tag_id,count|
         if(count>1)
           ArticleTag.create(article_id: @article.id, tag_id: tag_id)

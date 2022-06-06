@@ -5,3 +5,7 @@ war:
 politics:
   name: politics
   active: false
+
+soccer:
+  name: soccer
+  active: false

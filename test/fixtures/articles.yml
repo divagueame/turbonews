@@ -9,3 +9,10 @@ two:
   url: /asdf/fasdf/asdw
   source_id: 2
   browsed: true
+
+three:
+  header: The amazing story of a soccer coach
+  url: /threeurl
+  source_id: 2
+  browsed: true
+  body: coach coach player the story of a good coach. He was a good player. Coach He liked his gun.

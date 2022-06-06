@@ -46,5 +46,12 @@ class ArticlesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to articles_url
   end
 
-  # test ''
+  test 'should update article tags' do
+    @article = articles(:three)
+    assert_difference("ArticleTag.count", +1) do
+      patch article_url(@article), params: { get_tags: true, article: @article }
+    end
+    assert_redirected_to article_url(@article)
+    
+  end
 end

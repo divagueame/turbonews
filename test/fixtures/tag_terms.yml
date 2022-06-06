@@ -1,7 +1,15 @@
 one:
   tag: war
-  term: one
+  term: gun
 
 two:
   tag: two
   term: two
+
+three:
+  tag: soccer
+  term: coach
+
+four:
+  tag: soccer
+  term: player

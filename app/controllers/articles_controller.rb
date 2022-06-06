@@ -5,20 +5,18 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
 
   def index
-    get_article_tags(Article.find(11))
+    if params[:query].present?
+      @articles = Article.search_all("#{params[:query]}");
+      
+    else
+      @articles = Article.all
+    end
 
-    # @articles = if params[:query].present?
-    #               # @articles = Article.where("header LIKE ?", "#{params[:query]}%")
-    #               Article.search_all(params[:query].to_s)
-    #             else
-    #               Article.all
-    #             end
-
-    # if turbo_frame_request?
-    #   render partial: 'articles', locals: { articles: @articles }
-    # else
-    #   render :index
-    # end
+    if turbo_frame_request?
+      render partial: 'articles', locals: { articles: @articles }
+    else
+      render :index
+    end
   end
 
   def show; end

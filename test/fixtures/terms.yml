@@ -1,7 +1,8 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 gun:
   name: gun
 
 coach:
   name: coach
+
+player:
+  name: player

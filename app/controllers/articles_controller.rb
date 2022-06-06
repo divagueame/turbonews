@@ -5,6 +5,30 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
 
   def index
+    if params[:find_all_tags].present?
+      @articles = Article.all
+      @articles.each do |art|
+        next unless art.browsed
+        next unless art.body.present?
+        # p article.body
+        @article_tag = ArticleTag.find_or_initialize_by(article_id: art.id)
+        tags = get_article_tags(art)
+        tags.each do |tag_id,count|
+          if(count>1)
+            ArticleTag.create(article_id: art.id, tag_id: tag_id)
+          end
+        end
+        
+        if @article_tag.valid?
+          @article_tag.save
+          # return redirect_to article_path(article), notice: 'Tags updated'
+        else
+          # return redirect_to article_path(article), notice: 'Error! Tags could not be updated'
+        end
+
+
+      end
+    end
     if params[:query].present?
       @articles = Article.search_all("#{params[:query]}");
       
@@ -93,7 +117,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:header, :body, :url, :source_id, :browsed)
+    params.require(:article).permit(:header, :body, :url, :source_id, :browsed, :find_all_tags)
   end
 
   def valid_url?(url)

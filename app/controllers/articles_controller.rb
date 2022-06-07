@@ -5,6 +5,20 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
 
   def index
+
+    if params[:browse_all].present?
+      p "CHIKI"
+      Article.all.each do |art|
+        next unless !art.browsed
+        next unless !art.body.present?
+
+        body = get_article_body(art)
+        # browsed = true
+        art.update(body: body, browsed: true)
+        
+      end
+      p 'DONE'
+    end
     if params[:find_all_tags].present?
       @articles = Article.all
       @articles.each do |art|

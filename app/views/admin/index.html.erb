@@ -3,9 +3,18 @@
 <p>Total articles <%= Article.all.count %></p>
 <p>Total articles <%= Article.where(browsed: false) %></p>
 
+<%= link_to 'Get articles for all sources', sources_scrape_path, class: "scan" %>
+<br><br>
+
+<%= Date.today %><br>
+<p class="summary">Total scraped articles today: </p><br><%= Article.where(created_at: Date.today.all_day).count %>
+
+Current Sources:
 <% Source.all.each do |source| %>
-    <div class="source-card">
-        <%= source.name %>
+    <div class="source-card bg-slate-200 py-2">
+        <div>
+            <%= source.name %>
+        </div>        
     </div>
 <% end %>
 

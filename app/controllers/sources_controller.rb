@@ -4,7 +4,6 @@ require 'open-uri'
 class SourcesController < ApplicationController
   before_action :set_source, only: %i[show edit update destroy]
 
-  # GET /sources or /sources.json
   def index
     @sources = Source.all
   end
@@ -15,17 +14,17 @@ class SourcesController < ApplicationController
       scrape_report = scrape_source(source)
       reports.push(scrape_report)
     end
-    
+
     # Reports of the scraping
-    reports.each do |report| 
+    reports.each do |report|
       puts "\n"
       pp "Source: #{report[:source_name]}"
       pp "Saved: #{report[:saved]}"
       pp "Not saved: #{report[:not_saved]}"
     end
-  
+
     puts "\n"
-    redirect_to :articles
+    redirect_to admin_path, notice: 'Sources scraping done.'
   end
 
   def show; end
@@ -74,8 +73,8 @@ class SourcesController < ApplicationController
   private
 
   def scrape_source(source)
-    report = {:source_name=> source.name, :not_saved => 0, :saved => 0}
- 
+    report = { source_name: source.name, not_saved: 0, saved: 0 }
+
     id = source.id
     url = source.url
     selector = source.selector
@@ -91,12 +90,12 @@ class SourcesController < ApplicationController
 
       if @article.valid?
         @article.save
-        report[:saved] += 1  
+        report[:saved] += 1
       else
-        report[:not_saved] += 1  
+        report[:not_saved] += 1
       end
     end
-    
+
     report
   end
 

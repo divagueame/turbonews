@@ -11,3 +11,24 @@ el_mundo:
   selector: article a#ue-c-cover-content__link
   relative_url: false
   id: 2
+
+el_diario:
+  name: El Diario
+  url: https://www.eldiario.es
+  selector: .ni-title a
+  relative_url: false
+  id: 3
+
+# abc:
+#   name: ABC
+#   url: https://www.abc.es
+#   selector: .titular
+#   relative_url: true
+#   id: 4
+
+la_razon:
+  name: La Razon
+  url: https://www.larazon.es
+  selector: .card__headline a
+  relative_url: false
+  id: 5

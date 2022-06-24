@@ -1,7 +1,7 @@
-<div id="<%= dom_id article %>" class='container'>
+<div id="<%= dom_id article %>" class='scontainer'>
 
   <%= show_article_tags(article) %>
-  <p class="text-xl p-2 px-14 bg-blue-200">
+  <p class="text-l p-2 px-14 my-1 bg-purple-200 rounded">
     <%= link_to article.header, article_path(article), data: { turbo: false }  %>
   </p>
   

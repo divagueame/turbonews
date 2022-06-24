@@ -83,9 +83,9 @@ class ArticlesController < ApplicationController
       @article.browsed = true
       if @article.valid?
         @article.save
-        return redirect_to articles_path, notice: 'Body scanned properly'
+        return redirect_to article_path(@article), notice: 'Body scanned properly'
       else
-        return redirect_to articles_path, notice: 'Error! Body could not be scanned'
+        return redirect_to article_path(@article),  notice: 'Error! Body could not be scanned'
       end
     end
 

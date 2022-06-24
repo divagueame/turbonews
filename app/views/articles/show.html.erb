@@ -1,8 +1,8 @@
 <p style="color: green"><%= notice %></p>
-<%= render @article %>
-<div>
-  <%= link_to "Edit this article", edit_article_path(@article) %> |
-  <%= link_to "Back to articles", articles_path %>
+<div class="container"><br>
+  <%= render @article %><br>
+  <%= link_to "Edit this article", edit_article_path(@article), class:"link-sm" %> |
+  <%= link_to "Back to articles", articles_path, class:"link-sm" %>
 
   <%= button_to "Destroy this article", @article, method: :delete %>
 </div>

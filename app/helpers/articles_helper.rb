@@ -27,6 +27,8 @@ module ArticlesHelper
   end
 
   def article_body(article)
-    article.body if controller_name == 'articles' && action_name == 'show' && article.browsed
+    html = article.body.split("\n").map { |paragraph| "<p>" + paragraph + "</p>" }.join
+    html = ("<div class='article_body'>" + html + "</div>").html_safe
+    html if controller_name == 'articles' && action_name == 'show' && article.browsed
   end
 end

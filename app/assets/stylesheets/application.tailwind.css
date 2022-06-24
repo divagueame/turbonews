@@ -43,4 +43,18 @@
         border-4 border-purple-600
         text-purple-100 font-medium text-xs leading-tight uppercase rounded-full bg-slate-700 hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out
       }
+      .link-sm {
+        @apply bg-purple-400 px-2 py-1 rounded
+      }
+    }
+
+    
+    .article_body {
+      padding: 2vw 0;
+    }
+
+    .article_body p {
+      max-width: 52ch;
+      font-size: 24px;
+      margin: 0 auto 20px auto;
     }

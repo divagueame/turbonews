@@ -21,9 +21,9 @@
     textarea {
       @apply bg-blue-400 p-2
     }
-    [type=submit] {
-      @apply inline-block px-6 py-2 border-2 border-blue-800 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out
-      
+    [type=submit] {  }
+    form {
+      @apply inline
     }
   }
   
@@ -44,7 +44,14 @@
         text-purple-100 font-medium text-xs leading-tight uppercase rounded-full bg-slate-700 hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out
       }
       .link-sm {
-        @apply bg-purple-400 px-2 py-1 rounded
+        @apply drop-shadow inline-block bg-slate-200 hover:bg-blue-200 px-5 py-2 rounded
+        }
+      .button-secondary {
+        @apply bg-pink-100 hover:bg-purple-300
+      }
+      .search_btn {
+        @apply rounded bg-indigo-100 px-8 py-3 drop-shadow ml-6
+        cursor-pointer hover:outline-dashed hover:outline-1 hover:outline-offset-2 hover:outline-indigo-500
       }
     }
 

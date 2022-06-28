@@ -4,7 +4,7 @@
   <h1 class="font-bold text-4xl text-center">Articles</h1>
   <h4 class="text-center mb-2 font-bold"><%= Article.all.count %></h4>
 </div>
-<div class="bg-slate-200 px-20 flex justify-center py-8 mb-2">
+<div class="px-20 flex justify-center py-8 mb-2 outline-dashed outline-2 outline-offset-2 outline-slate-200">
 
 <%= form_with(url: articles_path, method: :get, 
   data: { controller: "search-form", turbo_frame: "articles", turbo_action: "advance"} ) do |form| %>
@@ -12,13 +12,13 @@
   <%= form.label :query, 'Search by: ', class:"hidden block mb-2"%>
 
   <%= form.text_field :query,
-    class:"py-3 px-4 rounded border ring-0 focus:ring-4 focus:ring-orange-100 focus:shadow-none focus:border-orange-500 focus:outline-none",
+    class:"py-3 px-4 bg-white rounded border ring-0 focus:ring-4 focus:ring-slate-100 focus:shadow-none focus:border-orange-500 focus:outline-none",
     data: { action: "input->search-form#search"}
     
   %>
 
   <%= form.submit "Search",
-   class: "ml-10 px-6 py-4 text-lg hover:bg-orange-200 rounded hover:text-slate-800 hover:drop-shadow-lg hover:cursor-pointer" %>
+   class: "search_btn" %>
 <% end %>
 </div>
 

@@ -1,7 +1,10 @@
 <p style="color: green"><%= notice %></p>
 <div class="container"><br>
   <%= render @article %><br>
-  <%= link_to "Edit this article", edit_article_path(@article), class:"link-sm" %> |
-  <%= link_to "Back to articles", articles_path, class:"link-sm" %> |
-  <%= button_to "Destroy this article", @article, method: :delete, class:"link-sm"  %>
+
+  <div class="pb-10 flex gap-4 justify-center">
+    <%= link_to "Back to articles", articles_path, class:"link-sm button-secondary" %>
+    <%= link_to "Edit this article", edit_article_path(@article), class:"link-sm" %>
+    <%= button_to "Destroy this article", @article, method: :delete, class:"link-sm" %>
+  </div>
 </div>

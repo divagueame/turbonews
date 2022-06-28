@@ -1,9 +1,8 @@
 <div id="<%= dom_id article %>" class='scontainer'>
 
   <%= show_article_tags(article) %>
-  <p class="text-l p-2 px-14 my-1 bg-purple-200 rounded">
-    <%= link_to article.header, article_path(article), data: { turbo: false }  %>
-  </p>
+
+  <%= article_header(article) %>
   
   <%= scrape_btn(article) %>
   <%= update_tags_btn(article) %>

@@ -1,4 +1,18 @@
 module ArticlesHelper
+  def article_header(article)
+    content = ''
+    if controller_name == 'articles' && action_name == 'index'
+      html = '<p class="text-l py-3 px-14 my-2 bg-white drop-shadow rounded">'
+      html += link_to article.header, article_path(article), data: { turbo: false }
+      html += '</p>'
+      content << html
+    elsif controller_name == 'articles' && action_name == 'show'
+      html = "<h1 class='py-3 text-center px-14 rounded mb-4 bg-blue-100 drop-shadow'>#{article.header}</h1>"
+      content << html
+    end
+    content.html_safe
+  end
+
   def show_article_tags(article)
     content = ''
     if controller_name == 'articles' && action_name == 'show'
@@ -27,8 +41,9 @@ module ArticlesHelper
   end
 
   def article_body(article)
-    html = article.body.split("\n").map { |paragraph| "<p>" + paragraph + "</p>" }.join
-    html = ("<div class='article_body'>" + html + "</div>").html_safe
-    html if controller_name == 'articles' && action_name == 'show' && article.browsed
+    return unless controller_name == 'articles' && action_name == 'show' && article.browsed
+
+    html = article.body.split("\n").map { |paragraph| '<p>' + paragraph + '</p>' }.join
+    ("<div class='article_body'>" + html + '</div>').html_safe
   end
 end

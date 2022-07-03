@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 
-
 @layer base {
+
     h1 {
       @apply text-2xl;
     }
@@ -14,7 +14,7 @@
     h3 {
       @apply text-lg;
     }
-    a {
+    a:hover {
       /* @apply text-blue-600 underline; */
     }
     input,
@@ -31,6 +31,39 @@
   
   
   @layer components {
+      .logo-wrapper {
+        display: block;
+        position: sticky;
+        width: min-content;
+        left: 20px;
+        top: 10px;
+        font-family: 'Alfa Slab One', cursive;
+
+        transition: ease all 150ms;
+      }
+      .logo {
+        position: relative;
+        width: 100%;
+        font-size: 18px;
+      }
+      .logo:after {
+        position: absolute;
+        width: 100%;
+        content: '';
+        background-color: #7BAFE8;
+        height: 3px;
+        border-radius: 5px;
+        bottom: 1px;
+        left: 0;
+        transition: ease all 500ms;
+      }
+      .logo-wrapper:hover {
+        /* transform: translateY(2px); */
+      }
+      .logo-wrapper:hover .logo:after { 
+        background-color: rgb(99, 102, 241);
+      }
+
       .btn-primary {
         @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
       }
@@ -49,9 +82,14 @@
       .button-secondary {
         @apply bg-pink-100 hover:bg-purple-300
       }
-      .search_btn {
+      .btn {
         @apply rounded bg-indigo-100 px-8 py-3 drop-shadow ml-6
         cursor-pointer hover:outline-dashed hover:outline-1 hover:outline-offset-2 hover:outline-indigo-500
+      }
+      .scrape_btn,
+      .update_tags_btn,
+      .search_btn {
+        @apply btn
       }
     }
 

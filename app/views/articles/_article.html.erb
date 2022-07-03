@@ -1,11 +1,11 @@
 <div id="<%= dom_id article %>" class='scontainer'>
 
   <%= show_article_tags(article) %>
-
-  <%= article_header(article) %>
-  
   <%= scrape_btn(article) %>
   <%= update_tags_btn(article) %>
-  <%= article_body(article) %>
+  <div class="py-4">
+    <%= article_header(article) %>
+    <%= article_body(article) %>
+  </div>
 
 </div>

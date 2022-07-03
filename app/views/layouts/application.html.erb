@@ -8,9 +8,15 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet">
   </head>
 
   <body>
+  <%= link_to articles_path, class: 'logo-wrapper' do %>
+    <h1 class="logo">TurboNews</h1>
+  <% end %>
      <%= yield %>
   </body>
 </html>

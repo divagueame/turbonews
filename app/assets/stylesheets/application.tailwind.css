@@ -15,13 +15,12 @@
       @apply text-lg;
     }
     a:hover {
-      /* @apply text-blue-600 underline; */
+      /* @apply underline; */
     }
     input,
     textarea {
       @apply bg-blue-400 p-2
     }
-    [type=submit] {  }
     form {
       @apply inline
     }
@@ -57,11 +56,23 @@
         left: 0;
         transition: ease all 500ms;
       }
-      .logo-wrapper:hover {
-        /* transform: translateY(2px); */
-      }
       .logo-wrapper:hover .logo:after { 
         background-color: rgb(99, 102, 241);
+      }
+      @media only screen and (max-width: 1190px) {
+        .logo-wrapper {
+          background-color: white;
+          z-index: 999;
+          width: 100%;
+          top: 0;
+          left: 0;
+          right: 0;
+        }
+        .logo {
+          width: min-content;
+          margin: 0 auto;
+          text-align: center;
+        }
       }
 
       .btn-primary {
@@ -90,6 +101,9 @@
       .update_tags_btn,
       .search_btn {
         @apply btn
+      }
+      .notice {
+        @apply absolute rounded-sm top-5 left-0 right-0 text-center font-bold;
       }
     }
 

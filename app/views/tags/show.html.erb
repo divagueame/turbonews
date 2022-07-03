@@ -1,5 +1,6 @@
+<div class="notice"><%= notice %></div>
+
 <div class="container">
-<p style="color: green"><%= notice %></p>
 
 <%= render @tag %>
 <% @articles.each do |article| %> <%= link_to article.header, article_path(article) %><% end %>

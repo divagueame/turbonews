@@ -32,7 +32,7 @@
   @layer components {
       .logo-wrapper {
         display: block;
-        position: sticky;
+        position: fixed;
         width: min-content;
         left: 20px;
         top: 10px;
@@ -79,7 +79,7 @@
         @apply py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
       }
       .btn-rounded {
-        @apply inline-block px-6 py-2 border-2 border-blue-600 text-blue-600 font-medium text-xs leading-tight uppercase rounded-full hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out
+        @apply inline-block px-6 py-2 border-4 border-blue-400 text-blue-600 font-medium text-m leading-tight uppercase rounded-full hover:bg-indigo-700 hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out
       }
       .btn-tag {
         @apply inline-block px-6 py-2
@@ -96,6 +96,16 @@
       .btn {
         @apply rounded bg-indigo-100 px-8 py-3 drop-shadow ml-6
         cursor-pointer hover:outline-dashed hover:outline-1 hover:outline-offset-2 hover:outline-indigo-500
+      }
+      .tag-btn {
+        @apply px-5 py-2 text-white font-bold rounded-full drop-shadow-xl
+      }
+      .tag-btn-blue {
+        @apply bg-sky-500/75
+      }
+      .tag-btn-purple {
+        @apply bg-purple-500/75
+
       }
       .scrape_btn,
       .update_tags_btn,
@@ -116,4 +126,7 @@
       max-width: 52ch;
       font-size: 24px;
       margin: 0 auto 20px auto;
+    }
+    .admin-panel h2 {
+      font-weight: bold;
     }

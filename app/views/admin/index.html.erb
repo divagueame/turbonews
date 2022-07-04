@@ -1,8 +1,15 @@
-<div class="admin-panel container">
-<h1>Admin Panel</h1>
+<div class="admin-panel container pb-20">
+<h1 class="bg-gradient-to-r from-purple-800 via-violet-900 to-purple-800
+            rounded-b-lg p-5 mb-8
+            font-bold 
+            underline underline-offset-4 text-white text-center">Admin Panel</h1>
 
-<p>Total articles <%= Article.all.count %></p>
-<p>Total articles <%= Article.where(browsed: false) %></p>
+<h2>Articles:</h2>
+<div class="flex gap-2">
+    <div>Total articles: <%= Article.all.count %></div>
+    <div>Not scanned: <%= Article.where(browsed: false).count %></div>
+    <div>Scanned: <%= (Article.all.count) - (Article.where(browsed: false).count) %></div>
+</div>
 
 <%= link_to 'Get articles for all sources', sources_scrape_path, class: "btn-rounded" %>
 <br><br>
@@ -10,15 +17,45 @@
 <%= Date.today %><br>
 <p class="summary">Total scraped articles today: </p><br><%= Article.where(created_at: Date.today.all_day).count %>
 
-Current Sources:
-<% Source.all.each do |source| %>
-    <div class="source-card bg-slate-200 py-2">
-        <div>
-            <%= source.name %>
-        </div>        
+<hr>
+
+<div class="py-6">
+    <h2  class="pb-2">Current Sources:</h2>
+    <div class="flex gap-2">
+        <% Source.all.each do |source| %>
+            <div class="source-card bg-yellow-200 drop-shadow-xs px-6 py-2 rounded my-2">
+                <div>
+                    <%= source.name %>
+                </div>        
+            </div>
+        <% end %>
     </div>
-<% end %>
 </div>
 
+<hr>
+<div class="py-6">
+    <%= link_to tags_path do %>
+        <h2 class="pb-2 hover:underline">Tags: <%= Tag.all.count %></h2>
+    <% end %>
+    <div class="flex gap-2">
+    <% Tag.all.each do |tag| %>
+        <h4 class="tag-btn tag-btn-blue">
+            <%= tag.name %>
+        </h4>
+    <% end %>
+    </div>
+</div>
 
+<hr>
+
+<h2 class="py-2">Terms: <%= Term.all.count %></h2>
+
+<div class="flex mb-4 gap-2">
+<% Term.all.each do |term| %>
+    <h4 class="tag-btn tag-btn-purple hue-rotate-<%= rand(0..180) %>">
+        <%= term.name %>
+    </h4>
+<% end %>
+</div>
  
+</div>

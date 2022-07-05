@@ -1,14 +1,12 @@
 module TagsHelper
-
   def show_active_state(tag)
     content = ''
     if controller_name == 'tags' && action_name == 'show'
-        html = "
+      html = "
         <strong>Active:</strong>
-        #{tag.active} <p class='font-bold mr-3 text-md'>"
+        #{tag.active} <p class='font-bold mr-3 text-sm'>"
       content << html
     end
     content.html_safe
   end
-  
 end

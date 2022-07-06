@@ -2,7 +2,19 @@
 
 <div class="container">
 
+
 <%= render @tag %>
+
+<div class="my-2 py-2">
+Associated Terms:
+ <div class="flex gap-4">
+  <% @tag.terms.each do |term| %>
+      <div class="bg-orange-100 py-1 px-2 drop-shadow-sm rounded text-sm"><%= term.name%></div>
+  <% end %>
+  </div>
+ </div>
+  
+
 <% @articles.each do |article| %> <%= link_to article.header, article_path(article) %><% end %>
 
 <div class="p-2 flex gap-8">
@@ -11,4 +23,5 @@
   <%= button_to "Destroy this tag", @tag, method: :delete , class: "btn-rounded " %>
 </div>
 </div>
+
 

@@ -5,17 +5,15 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
 
   def index
-
     if params[:browse_all].present?
-      p "CHIKI"
+      p 'CHIKI'
       Article.all.each do |art|
-        next unless !art.browsed
-        next unless !art.body.present?
+        next if art.browsed
+        next if art.body.present?
 
         body = get_article_body(art)
         # browsed = true
-        art.update(body: body, browsed: true)
-        
+        art.update(body:, browsed: true)
       end
       p 'DONE'
     end
@@ -24,31 +22,28 @@ class ArticlesController < ApplicationController
       @articles.each do |art|
         next unless art.browsed
         next unless art.body.present?
+
         # p article.body
         @article_tag = ArticleTag.find_or_initialize_by(article_id: art.id)
         tags = get_article_tags(art)
-        tags.each do |tag_id,count|
-          if(count>1)
-            ArticleTag.create(article_id: art.id, tag_id: tag_id)
-          end
+        tags.each do |tag_id, count|
+          ArticleTag.create(article_id: art.id, tag_id:) if count > 1
         end
-        
+
         if @article_tag.valid?
           @article_tag.save
           # return redirect_to article_path(article), notice: 'Tags updated'
         else
           # return redirect_to article_path(article), notice: 'Error! Tags could not be updated'
         end
-
-
       end
     end
-    if params[:query].present?
-      @articles = Article.search_all("#{params[:query]}");
-      
-    else
-      @articles = Article.all
-    end
+    @articles = if params[:query].present?
+                  Article.search_all("#{params[:query]}")
+
+                else
+                  Article.all.limit(10)
+                end
 
     if turbo_frame_request?
       render partial: 'articles', locals: { articles: @articles }
@@ -85,19 +80,17 @@ class ArticlesController < ApplicationController
         @article.save
         return redirect_to article_path(@article), notice: 'Body scanned properly'
       else
-        return redirect_to article_path(@article),  notice: 'Error! Body could not be scanned'
+        return redirect_to article_path(@article), notice: 'Error! Body could not be scanned'
       end
     end
 
     if params['get_tags']
       @article_tag = ArticleTag.find_or_initialize_by(article_id: @article.id)
       tags = get_article_tags(@article)
-      tags.each do |tag_id,count|
-        if(count>1)
-          ArticleTag.create(article_id: @article.id, tag_id: tag_id)
-        end
+      tags.each do |tag_id, count|
+        ArticleTag.create(article_id: @article.id, tag_id:) if count > 1
       end
-      
+
       if @article_tag.valid?
         @article_tag.save
         return redirect_to article_path(@article), notice: 'Tags updated'

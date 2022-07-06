@@ -1,4 +1,7 @@
 <div id="<%= dom_id article %>" class='scontainer'>
+  <% new_tags = [{name: 'handball'},{name: 'geniius'},{name: 'blue'}] %>
+  <% new_tags2 = {name: 'handball'} %>
+  <%= button_to 'ADD NEW TAGS', tags_path, class: 'btn', method: :post, data: {turbo: false}, params: {tags: new_tags } %>
 
   <%= show_article_tags(article) %>
   <%= scrape_btn(article) %>
@@ -7,5 +10,4 @@
     <%= article_header(article) %>
     <%= article_body(article) %>
   </div>
-
 </div>

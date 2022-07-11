@@ -5,7 +5,7 @@
             underline underline-offset-4 text-white text-center">Admin Panel</h1>
 
 <h2>Articles:</h2>
-<div class="flex gap-2">
+<div class="flex flex-wrap gap-2">
     <div>Total articles: <%= Article.all.count %></div>
     <div>Not scanned: <%= Article.where(browsed: false).count %></div>
     <div>Scanned: <%= (Article.all.count) - (Article.where(browsed: false).count) %></div>
@@ -21,7 +21,7 @@
 
 <div class="py-6">
     <h2  class="pb-2">Current Sources:</h2>
-    <div class="flex gap-2">
+    <div class="flex gap-2 flex-wrap">
         <% Source.all.each do |source| %>
             <div class="source-card border-2 border-indigo-300 bg-yellow-200 drop-shadow-xs px-6 py-2 rounded my-2">
                 <div>
@@ -37,7 +37,7 @@
     <%= link_to tags_path do %>
         <h2 class="pb-2 hover:underline">Tags: <%= Tag.all.count %></h2>
     <% end %>
-    <div class="flex gap-2">
+    <div class="flex flex-wrap gap-2">
     <% Tag.all.each do |tag| %>
         <h4 class="tag-btn tag-btn-blue">
             <%= tag.name %>
@@ -50,7 +50,7 @@
 
 <h2 class="py-2">Terms: <%= Term.all.count %></h2>
 
-<div class="flex mb-4 gap-2">
+<div class="flex flex-wrap mb-4 gap-2">
 <% Term.all.each do |term| %>
     <h4 class="tag-btn tag-btn-purple hue-rotate-<%= rand(0..180) %>">
         <%= term.name %>

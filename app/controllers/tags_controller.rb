@@ -15,41 +15,15 @@ class TagsController < ApplicationController
 
   def edit; end
 
-  # def create
-  #   @tag = Tag.new(tag_params)
-  #   respond_to do |format|
-  #     if @tag.save
-  #       format.html { redirect_to tags_url, notice: "Tag was successfully created." }
-  #     else
-  #       format.html { render :new, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
   def create
-    # tags = Tag.create(tags_params)
-    # p 'PARAMS!!'
-    # p params
-    begin
-      Tag.transaction do
-        @tags = Tag.create!(tags_params)
+    @tag = Tag.new(tag_params)
+    respond_to do |format|
+      if @tag.save
+        format.html { redirect_to tags_url, notice: 'Tag was successfully created.' }
+      else
+        format.html { render :new, status: :unprocessable_entity }
       end
-    rescue ActiveRecord::RecordInvalid => e
-      @tags = {
-        error: {
-          status: 422,
-          message: e
-        }
-      }
     end
-    redirect_to tags_url, notice: 'Tag was successfully created.'
-    # respond_to do |format|
-    #   if @tag.save
-    #     format.html { redirect_to tags_url, notice: "Tag was successfully created." }
-    #   else
-    #     format.html { render :new, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   def update
@@ -83,9 +57,8 @@ class TagsController < ApplicationController
   end
 
   def tags_params
-
     params.permit(
-      tags: [:name, :active]
+      tags: %i[name active]
     ).require(:tags)
     # params.require(:tags).permit({ tags: {:name} })
   end

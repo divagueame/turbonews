@@ -14,9 +14,13 @@
   </head>
 
   <body>
-  <%= link_to articles_path, class: 'logo-wrapper' do %>
-    <h1 class="logo">TurboNews</h1>
-  <% end %>
+      <%= link_to articles_path, class: 'logo-wrapper' do %>
+        <h1 class="logo">TurboNews</h1>
+      <% end %>
+
+    <div class="notice">
+      <span><%= notice %></span>
+    </div>
      <%= yield %>
   </body>
 </html>

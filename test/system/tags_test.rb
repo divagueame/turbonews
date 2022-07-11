@@ -12,15 +12,17 @@ class TagsTest < ApplicationSystemTestCase
 
   test 'should create tag' do
     visit tags_url
+    # assert_select '.tag', 2
     assert_no_text 'Chikitag'
     click_on 'New tag'
 
     fill_in 'Name', with: 'Chikitag'
     click_on 'Create Tag'
 
-    assert_text 'Tag was successfully created'
+    # assert_text 'Tag was successfully created'
+    assert_selector '.notice', text: 'Tag was successfully created'
     assert_text 'Chikitag'
-    # assert_select '.tag'
+    # assert_select '.tag', 4
   end
 
   test 'should update Tag' do

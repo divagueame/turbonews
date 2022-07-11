@@ -3,11 +3,11 @@ module ArticlesHelper
     content = ''
     if controller_name == 'articles' && action_name == 'index'
       link_to article_path(article), data: { turbo: false } do
-        "<p class='text-l py-3 px-14 my-2 bg-white drop-shadow rounded border-l-4 border-white hover:border-indigo-500'>#{article.header}</p>".html_safe
+        "<p class='text-l  px-14 my-.5 md:my-2 bg-white py-2 md:py-3  drop-shadow rounded border-l-4 border-white hover:border-indigo-500'>#{article.header}</p>".html_safe
       end
       # content << html
     elsif controller_name == 'articles' && action_name == 'show'
-      html = "<h1 class='py-3 text-center px-14 rounded mb-4 bg-blue-100 drop-shadow'>#{article.header}</h1>"
+      html = "<h1 class='text-center rounded py-3 px-14 mb-4 sm:bg-yellow-800 bg-blue-100 drop-shadow'>#{article.header}</h1>"
       content << html
       content.html_safe
     end

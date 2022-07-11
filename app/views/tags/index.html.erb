@@ -1,17 +1,13 @@
-<div class="notice"><%= notice %></div>
-
-<div class="container">
-   
-
-<h1>Tags</h1>
-<div id="tags" class="flex">
-  <% @tags.each do |tag| %>
-      <%= link_to tag, class: "p-5 mb-8" do %>
-        <%= render tag %>
-      <% end %>
-    
-  <% end %>
-</div>
-<br><br>
-<%= link_to "New tag", new_tag_path, class: "btn-rounded" %>
+<div class="container pt-10">
+  <h1>Tags</h1>
+  <div id="tags" class="flex flex-wrap gap-2">
+    <% @tags.each do |tag| %>
+        <%= link_to tag, class: "" do %>
+          <%= render tag %>
+        <% end %>
+      
+    <% end %>
+  </div>
+  <br><br>
+  <%= link_to "New tag", new_tag_path, class: "btn-rounded" %>
 </div>

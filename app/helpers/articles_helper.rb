@@ -40,8 +40,8 @@ module ArticlesHelper
   def update_terms_btn(article)
     return unless controller_name == 'articles' && action_name == 'show' && article.browsed
 
-    button_to 'Update terms', article_path(article), class: 'update_terms_btn', method: :patch, data: { turbo: false },
-                                                     params: { 'get_terms' => true }
+    button_to 'Update terms', terms_path, class: 'update_terms_btn', method: :patch, data: { turbo: false },
+                                          params: {article_id: article.id }
   end
 
   def update_tags_btn(article)

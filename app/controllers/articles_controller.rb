@@ -5,18 +5,6 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
 
   def index
-    if params['get_terms']
-      tags = {}
-      @article = Article.find(980_191_273)
-
-      article_terms = get_article_body_dictionary(@article, 3)
-
-      terms = Hash[article_terms.sort_by { |_k, v| -v }[0..3]]
-      terms.each_key do |key|
-        @term = Term.find_or_initialize_by(name: key)
-        @term.save if @term.valid?
-      end
-    end
 
     if params[:browse_all].present?
       p 'CHIKI'

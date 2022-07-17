@@ -109,8 +109,12 @@
       }
       .scrape_btn,
       .update_tags_btn,
+      .update_terms_btn,
       .search_btn {
         @apply btn
+      }
+      .update_terms_btn {
+        @apply bg-indigo-300
       }
       .notice {
         @apply fixed bottom-5 

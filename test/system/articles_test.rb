@@ -32,18 +32,19 @@ class ArticlesTest < ApplicationSystemTestCase
     assert_selector '.update_tags_btn', count: 1
   end
 
-  test 'should create article' do
-    visit articles_url
-    click_on 'New article'
+  # Removed this functionality
+  # test 'should create article' do
+  #   visit articles_url
+  #   click_on 'New article'
 
-    fill_in 'Body', with: 'ChikiBody'
-    fill_in 'Header', with: 'Chikiheader'
-    fill_in 'Url', with: 'ChikiUrl'
-    click_on 'Create Article'
+  #   fill_in 'Body', with: 'ChikiBody'
+  #   fill_in 'Header', with: 'Chikiheader'
+  #   fill_in 'Url', with: 'ChikiUrl'
+  #   click_on 'Create Article'
 
-    assert_text 'Article was successfully created'
-    click_on 'Back'
-  end
+  #   assert_text 'Article was successfully created'
+  #   click_on 'Back'
+  # end
 
   test 'should update Article' do
     visit article_url(@article)

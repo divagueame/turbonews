@@ -11,7 +11,7 @@ module ArticlesHelper
       end
       # content << html
     elsif controller_name == 'articles' && action_name == 'show'
-      html = "<h1 class='text-center rounded py-3 mb-4 sm:bg-yellow-800 bg-blue-100 drop-shadow'>#{article.header}</h1>"
+      html = "<h1 class='text-center rounded py-3 mb-4 sm:bg-yellow-200 bg-blue-100 drop-shadow'>#{article.header}</h1>"
       content << html
       content.html_safe
     end
@@ -35,6 +35,13 @@ module ArticlesHelper
 
     button_to 'Scrape this article', article_path(article), class: 'scrape_btn', method: :patch, data: { turbo: false },
                                                             params: { 'full_scrape' => true }
+  end
+
+  def update_terms_btn(article)
+    return unless controller_name == 'articles' && action_name == 'show' && article.browsed
+
+    button_to 'Update terms', article_path(article), class: 'update_terms_btn', method: :patch, data: { turbo: false },
+                                                     params: { 'get_terms' => true }
   end
 
   def update_tags_btn(article)

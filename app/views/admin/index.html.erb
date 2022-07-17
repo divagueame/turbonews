@@ -16,10 +16,11 @@
 <%= link_to 'Get articles for all sources', sources_scrape_path, class: "btn-rounded" %>
 <br><br>
 
-<%= Date.today %><br>
-<p class="summary">Total scraped articles today: </p><br>
+
 <h4>
-<%= Article.where(created_at: Date.today.all_day).count %>
+    <%= Date.today %><br>
+    Total scraped articles today: 
+    <%= Article.where(created_at: Date.today.all_day).count %>
 </h4>
 
 <hr>

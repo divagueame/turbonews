@@ -3,6 +3,7 @@
 
   <%= show_article_tags(article) %>
   <%= scrape_btn(article) %>
+  <%= update_terms_btn(article) %>
   <%= update_tags_btn(article) %>
   <div class="<%= 'py-4' unless controller_name == 'articles' && action_name == 'index' %>">
     <%= article_header(article) %>

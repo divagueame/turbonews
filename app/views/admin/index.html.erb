@@ -4,18 +4,23 @@
             font-bold 
             underline underline-offset-4 text-white text-center">Admin Panel</h1>
 
+
 <h2>Articles:</h2>
 <div class="flex flex-wrap gap-2">
     <div>Total articles: <%= Article.all.count %></div>
     <div>Not scanned: <%= Article.where(browsed: false).count %></div>
     <div>Scanned: <%= (Article.all.count) - (Article.where(browsed: false).count) %></div>
 </div>
-
+ 
+<%= line_chart Article.group_by_day(:created_at).count %>
 <%= link_to 'Get articles for all sources', sources_scrape_path, class: "btn-rounded" %>
 <br><br>
 
 <%= Date.today %><br>
-<p class="summary">Total scraped articles today: </p><br><%= Article.where(created_at: Date.today.all_day).count %>
+<p class="summary">Total scraped articles today: </p><br>
+<h4>
+<%= Article.where(created_at: Date.today.all_day).count %>
+</h4>
 
 <hr>
 

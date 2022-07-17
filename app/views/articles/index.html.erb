@@ -1,44 +1,30 @@
 <div class="container ">
-<div class="py-6  pt-12">
-  <h1 class="font-bold text-4xl text-center">Articles</h1>
-  <h4 class="text-center mb-2 font-bold">Total articles: <%= Article.all.count %></h4>
-  <h4 class="text-center mb-2 font-bold">Total found: <%= @articles.count %></h4>
-</div>
-<div class="py-10">
-<div class="flex justify-center 
-            px-20
-            <%# outline-dashed outline-2 outline-offset-2 outline-slate-200 %>
-            ">
+  <div class="py-6  pt-12">
+    <h1 class="font-bold text-4xl text-center">Articles</h1>
+    <h4 class="text-center mb-2 font-bold">Total articles: <%= Article.all.count %></h4>
+    <h4 class="text-center mb-2 font-bold">Total found: <%= @articles.count %></h4>
+  </div>
+  <div class="py-10">
+    <div class="flex justify-center 
+                px-20
+                <%# outline-dashed outline-2 outline-offset-2 outline-slate-200 %>
+                "> 
+      <%= form_with(url: articles_path, method: :get, 
+        data: { controller: "search-form", turbo_frame: "articles", turbo_action: "advance"} ) do |form| %>
 
-<%= form_with(url: articles_path, method: :get, 
-  data: { controller: "search-form", turbo_frame: "articles", turbo_action: "advance"} ) do |form| %>
+        <%= form.label :query, 'Search by: ', class:"hidden block mb-2"%>
 
-  <%= form.label :query, 'Search by: ', class:"hidden block mb-2"%>
+        <%= form.text_field :query,
+          class:"py-3 px-4 bg-white rounded border ring-0 focus:ring-4 focus:ring-slate-100 focus:shadow-none focus:border-orange-500 focus:outline-none",
+          data: { action: "input->search-form#search"}
+        %>
 
-  <%= form.text_field :query,
-    class:"py-3 px-4 bg-white rounded border ring-0 focus:ring-4 focus:ring-slate-100 focus:shadow-none focus:border-orange-500 focus:outline-none",
-    data: { action: "input->search-form#search"}
-  %>
-
-  <%= form.submit "Search",
-   class: "search_btn" %>
-<% end %>
-</div>
-</div>
-
-<div class="my-16">
-  <%= render "articles", articles: @articles %>
-</div>
-
-<div id="articles" class="hidden">
-  <% @articles.each do |article| %>
-      <%= link_to article do %>
-        <%= render article %>
+        <%= form.submit "Search",
+        class: "search_btn" %>
       <% end %>
-    <br>
-  <% end %>
-</div>
-
-<%= link_to "New article", new_article_path, class: "ml-10 px-6 py-4 text-lg bg-slate-200 hover:bg-slate-500 rounded hover:text-slate-200 hover:drop-shadow-lg" %>
-
+    </div>
+  </div>
+  <div class="my-16">
+    <%= render "articles", articles: @articles %>
+  </div>
 </div>

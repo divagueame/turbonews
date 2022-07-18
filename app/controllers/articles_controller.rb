@@ -5,19 +5,6 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
 
   def index
-
-    if params[:browse_all].present?
-      p 'CHIKI'
-      Article.all.each do |art|
-        next if art.browsed
-        next if art.body.present?
-
-        body = get_article_body(art)
-        # browsed = true
-        art.update(body:, browsed: true)
-      end
-      p 'DONE'
-    end
     if params[:find_all_tags].present?
       @articles = Article.all
       @articles.each do |art|
@@ -69,6 +56,20 @@ class ArticlesController < ApplicationController
         format.html { redirect_to article_url(@article), notice: 'Article was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update_all
+    if params[:browse_today_bodies].present?
+      Article.where(created_at: Time.now.all_day).order('RANDOM()').each do |art|
+        next if art.browsed
+        next if art.body.present?
+
+        body = get_article_body(art)
+
+        art.update(body:, browsed: true) if body.length > 40
+        sleep 10
       end
     end
   end
@@ -125,6 +126,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:header, :body, :url, :source_id, :browsed, :find_all_tags)
+    params.require(:article).permit(:header, :body, :url, :source_id, :browsed, :find_all_tags, :browse_today_bodies)
   end
 end

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/admin', to: 'admin#index'
   get '/sources/scrape', to: 'sources#scrape_sources'
   get '/articles/find_all_tags', to: 'articles#index'
+  post '/articles/find_all_bodies', to: 'articles#update_all'
   resources :tags
   resources :sources
   resources :articles

@@ -11,9 +11,40 @@
     <div>Not scanned: <%= Article.where(browsed: false).count %></div>
     <div>Scanned: <%= (Article.all.count) - (Article.where(browsed: false).count) %></div>
 </div>
+
+<div class="graphs">
+    <%= line_chart [
+    {name: "All Articles", data: Article.group_by_day(:created_at).count},
+    {name: "Browsed", data: Article.where(browsed:true).group_by_day(:created_at).count }
+    ] %> 
+    
+    
+    <%# Sources Line %>
+    <% 
+    sources = []
+    Source.all.each do |v|
+        hash = {name: v.name, data: v.articles.group_by_day(:created_at).count}
+        sources.push(hash)
+    end
+    %>
+    <%= line_chart sources%>
+    
+    
+    <%# Sources Total Pie %>
+    <% 
+    sources_pie = []
+    Source.all.each do |v|
+        array = [v.name, v.articles.count]
+        sources_pie.push(array)
+    end
+    %>
+    <%= pie_chart sources_pie %>
+</div>
+
  
-<%= line_chart Article.group_by_day(:created_at).count %>
+ 
 <%= link_to 'Get articles for all sources', sources_scrape_path, class: "btn-rounded" %>
+<%= button_to 'Scrape body for all articles today', articles_find_all_bodies_path, params: { 'browse_today_bodies' => true }, class: "btn-rounded" %>
 <br><br>
 
 

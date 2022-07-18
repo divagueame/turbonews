@@ -12,4 +12,13 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response 204
   end
+
+  test 'should not create term from an article if already exists' do
+    @existing_article = articles(:two)
+    assert_no_difference('Term.count') do
+      patch terms_url(@existing_article.id), params: { article_id: @existing_article.id }
+    end
+
+    assert_response 204
+  end
 end

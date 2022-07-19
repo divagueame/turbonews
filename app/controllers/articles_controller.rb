@@ -69,6 +69,7 @@ class ArticlesController < ApplicationController
         body = get_article_body(art)
 
         art.update(body:, browsed: true) if body.length > 40
+        art.update(body:, browsed: true, is_valid: false) if body.length <= 40
         sleep 10
       end
     end
@@ -126,6 +127,6 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:header, :body, :url, :source_id, :browsed, :find_all_tags, :browse_today_bodies)
+    params.require(:article).permit(:header, :body, :url, :source_id, :browsed, :find_all_tags, :browse_today_bodies, :is_valid)
   end
 end

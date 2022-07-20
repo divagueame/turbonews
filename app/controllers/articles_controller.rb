@@ -65,11 +65,12 @@ class ArticlesController < ApplicationController
       Article.where(created_at: Time.now.all_day).order('RANDOM()').each do |art|
         next if art.browsed
         next if art.body.present?
-        p '///////////////////////////////////////'
-        p 'update_all'
-        
+
         body = get_article_body(art)
-        
+        p 'update_all'
+        p '///////////////////////////////////////'
+        p body
+        p '///////////////////////////////////////'
         art.update(body:, browsed: true) if body.length > 40
         art.update(body:, browsed: true, is_valid: false) if body.length <= 40
         sleep 10
@@ -129,6 +130,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:header, :body, :url, :source_id, :browsed, :find_all_tags, :browse_today_bodies, :is_valid)
+    params.require(:article).permit(:header, :body, :url, :source_id, :browsed, :find_all_tags, :browse_today_bodies,
+                                    :is_valid)
   end
 end

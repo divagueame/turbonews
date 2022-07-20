@@ -47,6 +47,7 @@ module Extracter
       if valid_url?(article.url)
         p '/////////////////////////////////////////////////////////'
         p '1. GET ARTICLE URL'
+        p article.url
         article.url
       elsif valid_url?(article.source.url + article.url)
         p '/////////////////////////////////////////////////////////'

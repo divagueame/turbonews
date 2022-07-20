@@ -48,8 +48,6 @@ module Extracter
         article.url
       elsif valid_url?(article.source.url + article.url)
         article.source.url + article.url
-      else
-        nil
       end
     end
 
@@ -62,6 +60,7 @@ module Extracter
       article_url = get_article_url(article) # Verifies the url is valid
       return unless article_url
 
+      p 'Article body after return!'
       # Scrape HTML
       html = URI.open(article_url).read
       html = Nokogiri::HTML.parse(html)

@@ -42,10 +42,12 @@ module Extracter
     end
 
     def valid_url?(url)
-      return false unless url.scan(/http/).length <= 1
-      return false unless url.scan(/www/).length <= 1
+      return false unless url.scan(/http/).length > 1
+      return false unless url.scan(/www/).length > 1
 
       url = begin
+        p 'Begin: '
+        p URI.parse(url)
         URI.parse(url)
       rescue StandardError
         false

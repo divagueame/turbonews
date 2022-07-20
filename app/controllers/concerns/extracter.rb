@@ -45,11 +45,17 @@ module Extracter
 
     def get_article_url(article)
       if valid_url?(article.url)
+        p '/////////////////////////////////////////////////////////'
+        p '1. GET ARTICLE URL'
         article.url
       elsif valid_url?(article.source.url + article.url)
+        p '/////////////////////////////////////////////////////////'
+        p '2. GET ARTICLE URL'
         article.source.url + article.url
       else
         p 'ERROR. Not available url'
+        p '/////////////////////////////////////////////////////////'
+        p '3. GET ARTICLE URL'
         p article.source.url
         p article.url
         nil
@@ -57,6 +63,8 @@ module Extracter
     end
 
     def get_article_body(article)
+      p '/////////////////////////////////////////////////////////'
+      p 'GET ARTICLE BODY'
       get_article_url(article)
       return if article.browsed
 
@@ -74,7 +82,8 @@ module Extracter
       total_words_count = 0
       retrieved_paragraphs.each { |piece| total_words_count += piece.split.size }
       puts 'Total Words Count'
-      p total_words_count
+      # p total_words_count
+      # p article.source.name
 
       body_string = ''
       retrieved_paragraphs.each { |paragraph| body_string += (paragraph + "\n") }

@@ -14,8 +14,6 @@ module Extracter
       words_count
     end
 
-
-
     # Returns a hash with a counter of terms ocurrences
     def get_article_tags(article)
       tags = {}
@@ -47,7 +45,7 @@ module Extracter
 
     def get_article_url(article)
       if valid_url?(article.url)
-        return article.url
+        article.url
       elsif valid_url?(article.source.url + article.url)
         article.source.url + article.url
       end

@@ -54,6 +54,7 @@ module Extracter
 
     def get_article_url(article)
       if valid_url?(article.url) && relative_url(article.url)
+        p 'FIRST'
         article.url
       elsif valid_url?(article.source.url + article.url)
         p 'ENTER SECOND'

@@ -49,12 +49,14 @@ module Extracter
     end
 
     def relative_url?(url)
-      url.scan(/http/).length != 1
+      url.scan(/http/).empty?
     end
 
     def get_article_url(article)
-      if valid_url?(article.url) && relative_url?(article.url)
+      if valid_url?(article.url) && !relative_url?(article.url)
         p 'FIRST'
+        p article.url
+
         article.url
       elsif valid_url?(article.source.url + article.url)
         p 'ENTER SECOND'

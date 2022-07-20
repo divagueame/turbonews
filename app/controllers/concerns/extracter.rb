@@ -45,24 +45,10 @@ module Extracter
 
     def get_article_url(article)
       if valid_url?(article.url)
-        p '/////////////////////////////////////////////////////////'
-        p '1. GET ARTICLE URL . ARTICLE SOURCE'
-        p article.source.url
-        p '1. GET ARTICLE URL . ARTICLE URL'
-        p article.url
         article.url
       elsif valid_url?(article.source.url + article.url)
-        p '/////////////////////////////////////////////////////////'
-        p '2. GET ARTICLE URL'
-        p article.source.url
-        p article.url
         article.source.url + article.url
       else
-        p 'ERROR. Not available url'
-        p '/////////////////////////////////////////////////////////'
-        p '3. GET ARTICLE URL'
-        p article.source.url
-        p article.url
         nil
       end
     end
@@ -70,7 +56,7 @@ module Extracter
     def get_article_body(article)
       p '/////////////////////////////////////////////////////////'
       p 'GET ARTICLE BODY'
-      get_article_url(article)
+      # get_article_url(article)
       return if article.browsed
 
       article_url = get_article_url(article) # Verifies the url is valid

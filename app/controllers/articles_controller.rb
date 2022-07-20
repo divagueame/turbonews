@@ -65,9 +65,11 @@ class ArticlesController < ApplicationController
       Article.where(created_at: Time.now.all_day).order('RANDOM()').each do |art|
         next if art.browsed
         next if art.body.present?
-
+        p '///////////////////////////////////////'
+        p 'update_all'
+        
         body = get_article_body(art)
-
+        
         art.update(body:, browsed: true) if body.length > 40
         art.update(body:, browsed: true, is_valid: false) if body.length <= 40
         sleep 10

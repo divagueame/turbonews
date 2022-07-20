@@ -14,9 +14,7 @@ module Extracter
       words_count
     end
 
-    def valid_url?(url)
-      (url[0, 3] === 'htt') || (url[0, 3] === 'www') ? true : false
-    end
+
 
     # Returns a hash with a counter of terms ocurrences
     def get_article_tags(article)
@@ -43,9 +41,13 @@ module Extracter
       Term.where(name: terms)
     end
 
+    def valid_url?(url)
+      (url[0, 3] === 'htt') || (url[0, 3] === 'www') ? true : false
+    end
+
     def get_article_url(article)
       if valid_url?(article.url)
-        article.url
+        return article.url
       elsif valid_url?(article.source.url + article.url)
         article.source.url + article.url
       end

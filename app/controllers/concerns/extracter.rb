@@ -42,22 +42,18 @@ module Extracter
     end
 
     def valid_url?(url)
-      return false unless url.scan(/http/).length > 1
-      return false unless url.scan(/www/).length > 1
+      return false if url.scan(/http/).length > 1
+      return false if url.scan(/www/).length > 1
 
-      url = begin
-        p 'Begin: '
-        p URI.parse(url)
-        URI.parse(url)
-      rescue StandardError
-        false
-      end
+      true
+    end
+
+    def relative_url?(url)
+      url.scan(/http/).length != 1
     end
 
     def get_article_url(article)
-      if valid_url?(article.url)
-        p 'ENTER FIRST'
-        p article.url
+      if valid_url?(article.url) && relative_url(article.url)
         article.url
       elsif valid_url?(article.source.url + article.url)
         p 'ENTER SECOND'

@@ -61,6 +61,7 @@ module Extracter
       return unless article_url
 
       p 'Article body after return!'
+      p article_url
       # Scrape HTML
       html = URI.open(article_url).read
       html = Nokogiri::HTML.parse(html)

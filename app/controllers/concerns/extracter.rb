@@ -1,3 +1,5 @@
+require 'uri'
+
 module Extracter
   extend ActiveSupport::Concern
 
@@ -40,7 +42,14 @@ module Extracter
     end
 
     def valid_url?(url)
-      (url[0, 3] === 'htt') || (url[0, 3] === 'www') ? true : false
+      return false unless url.scan(/http/).length <= 1
+      return false unless url.scan(/www/).length <= 1
+
+      url = begin
+        URI.parse(url)
+      rescue StandardError
+        false
+      end
     end
 
     def get_article_url(article)

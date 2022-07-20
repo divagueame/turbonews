@@ -1,26 +1,35 @@
-<div class="container ">
-
   <%# Search box %>
-  <div class="fixed top-2 right-4">
-    <div class="flex justify-center 
-                px-20
-                <%# outline-dashed outline-2 outline-offset-2 outline-slate-200 %>
-                "> 
-      <%= form_with(url: articles_path, method: :get, 
+  <div class="fixed top-3 right-3 z-10">
+ 
+      <%= form_with(url: articles_path, method: :get,  class: 'flex align-items outline-2 outline-black  transition-all',
         data: { controller: "search-form", turbo_frame: "articles", turbo_action: "advance"} ) do |form| %>
 
-        <%= form.label :query, 'Search by: ', class:"hidden block mb-2"%>
+        <%= form.label :query, class:"text-sm hidden top-0 left-0" do %>
+        Find in all articles
+        <% end %>
 
         <%= form.text_field :query,
-          class:"py-3 px-4 bg-white rounded border ring-0 focus:ring-4 focus:ring-slate-100 focus:shadow-none focus:border-orange-500 focus:outline-none",
+          class:"rounded-l-lg
+                p-0 pl-4 py-0.5 outline-0 w-32  active:border-r-0
+                bg-white focus:bg-white
+                border border-slate-400 border-width-4 border-r-0 
+                ",
+                autocomplete:'off',
           data: { action: "input->search-form#search"}
         %>
 
-        <%= form.submit "Search",
-        class: "search_btn" %>
+        <%= button_tag( :class => "p-2 bg-white hover:bg-gray-100 rounded-r-lg
+                                    border border-slate-400 border-width-4 border-l-0 
+                                    ") do %>
+          <%= image_tag 'search.svg', class: 'h4 w-4' %>
+        <% end %>
+
       <% end %>
-    </div>
+ 
   </div>
+  
+<div class="container ">
+
 
   <%# Articles %>
   <div class="my-16">

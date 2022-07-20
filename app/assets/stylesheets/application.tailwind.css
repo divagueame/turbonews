@@ -62,7 +62,7 @@
       @media only screen and (max-width: 1190px) {
         .logo-wrapper {
           background-color: white;
-          z-index: 999;
+          z-index: 9;
           width: 100%;
           top: 0;
           left: 0;
@@ -109,8 +109,7 @@
       }
       .scrape_btn,
       .update_tags_btn,
-      .update_terms_btn,
-      .search_btn {
+      .update_terms_btn  {
         @apply btn
       }
       .update_terms_btn {
@@ -130,7 +129,8 @@
       }
     }
 
-    
+ 
+    /* Articles */
     .article_body {
       padding: 2vw 0;
     }
@@ -140,6 +140,7 @@
       font-size: 24px;
       margin: 0 auto 20px auto;
     }
+    /* Admin */
     .admin-panel h2 {
       font-weight: bold;
     }

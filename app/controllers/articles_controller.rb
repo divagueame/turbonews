@@ -72,6 +72,8 @@ class ArticlesController < ApplicationController
         p '///////////////////////////////////////'
         p body
         p '///////////////////////////////////////'
+        next if body.nil?
+
         art.update(body:, browsed: true) if body.length > 40
         art.update(body:, browsed: true, is_valid: false) if body.length <= 40
         sleep 10

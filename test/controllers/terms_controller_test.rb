@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TagsControllerTest < ActionDispatch::IntegrationTest
+class TermsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @article = articles(:four)
   end
@@ -20,5 +20,14 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response 204
+  end
+
+  test 'should create all terms from an articles' do
+    assert_difference('Term.count') do
+      post terms_find_all_terms_path, params: { update_all_terms: true }
+    end
+
+    assert_equal '1 new terms added.', flash[:notice]
+    assert_response 302
   end
 end

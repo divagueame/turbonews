@@ -18,7 +18,7 @@ class SourcesController < ApplicationController
 
     # Reports of the scraping
     reports.each do |report|
-      total_new += report.saved
+      total_new += report[:saved]
       puts "\n"
       pp "Source: #{report[:source_name]}"
       pp "Saved: #{report[:saved]}"

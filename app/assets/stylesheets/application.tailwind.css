@@ -79,7 +79,7 @@
         @apply py-2 px-4 bg-orange-500 text-white font-semibold rounded-lg shadow-md hover:bg-orange-700;
       }
       .btn-rounded {
-        @apply inline-block px-6 py-2 text-white font-medium text-sm leading-tight uppercase rounded-sm bg-indigo-400 hover:bg-indigo-700 hover:bg-opacity-75
+        @apply text-center inline-block px-6 py-2 text-white font-medium text-sm leading-tight uppercase rounded-sm bg-indigo-400 hover:bg-indigo-700 hover:bg-opacity-75
       }
       .btn-tag {
         @apply inline-block px-6 py-2

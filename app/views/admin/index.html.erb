@@ -1,18 +1,20 @@
-<div class="admin-panel container pb-20">
+<div class="admin-panel container pt-10 pb-20">
 <h1 class="bg-gradient-to-r from-purple-800 via-violet-900 to-purple-800
             rounded-b-lg p-5 mb-8
             font-bold 
             underline underline-offset-4 text-white text-center">Admin Panel</h1>
 
-
+<% @browsed = Article.where(browsed: false).count
+;
+ 
+%>
 <h2>Articles:</h2>
 <div class="flex flex-wrap gap-2">
-    <div>Total articles: <%= Article.all.count %></div>
-    <div>Not scanned: <%= Article.where(browsed: false).count %></div>
-    <div>Scanned: <%= (Article.all.count) - (Article.where(browsed: false).count) %></div>
+    <div>Total articles: <%= Article.count %>
+    (Scanned: <b><%=    ((Article.where(browsed: true).count.to_f / Article.all.count.to_f) * 100).round(2)  %>%)</b></div>
 </div>
 
-<div class="graphs">
+<div class="graphs py-2 flex gap-4 flex-wrap">
     <%= line_chart [
     {name: "All Articles", data: Article.group_by_day(:created_at).count},
     {name: "Browsed", data: Article.where(browsed:true).group_by_day(:created_at).count }
@@ -42,16 +44,19 @@
 </div>
 
  
- 
-<%= link_to 'Get articles for all sources', sources_scrape_path, class: "btn-rounded" %>
-<%= button_to 'Scrape body for all articles today', articles_find_all_bodies_path, params: { 'browse_today_bodies' => true }, class: "btn-rounded" %>
+ <div class="flex flex-wrap  gap-2 justify-center md:justify-start">
+    <%= link_to 'Get articles for all sources', sources_scrape_path, class: "btn-rounded" %>
+    <%= button_to 'Scrape body for all articles today', articles_find_all_bodies_path, params: { 'browse_today_bodies' => true }, title: 'Will take some time.', class: "btn-rounded" %>
+ </div>
 <br><br>
 
 
 <h4>
     <%= Date.today %><br>
     Total scraped articles today: 
-    <%= Article.where(created_at: Date.today.all_day).count %>
+    <% @total_today = Article.where(created_at: Date.today.all_day).count %> 
+    <%= @total_today %> 
+    (Scraped content: <b><%= (((Article.where(created_at: Date.today.all_day).where.not(body: nil).count.to_f) / @total_today.to_f) * 100).round(2) %>%</b>)
 </h4>
 
 <hr>
@@ -85,14 +90,20 @@
 
 <hr>
 
-<h2 class="py-2">Terms: <%= Term.all.count %></h2>
-
-<div class="flex flex-wrap mb-4 gap-2">
-<% Term.all.each do |term| %>
-    <h4 class="tag-btn tag-btn-purple hue-rotate-<%= rand(0..180) %>">
-        <%= term.name %>
-    </h4>
+<%= link_to terms_path do %>
+    <h2 class="pb-2 hover:underline">Terms: <%= Term.all.count %></h2>
 <% end %>
-</div>
+    
+<div class="flex flex-wrap mb-4 gap-2">
+    <% Term.all.limit(15).each do |term| %>
+        <h4 class="tag-btn tag-btn-purple hue-rotate-<%= rand(0..180) %>">
+            <%= term.name %>
+        </h4>
+    <% end %>
+    <h4 class="tag-btn tag-btn-purple ">
+        ...
+    </h4>
+</div> 
+<%= button_to 'Get All Terms', terms_find_all_terms_path, params: { 'update_all_terms' => true }, title: 'Will take some time.', class: "btn-rounded" %>
  
 </div>

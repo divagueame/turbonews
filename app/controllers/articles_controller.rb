@@ -68,10 +68,7 @@ class ArticlesController < ApplicationController
         next if art.body.present?
 
         body = get_article_body(art)
-        p 'update_all'
-        p '///////////////////////////////////////'
-        p body
-        p '///////////////////////////////////////'
+
         next if body.nil?
 
         art.update(body:, browsed: true) if body.length > 40

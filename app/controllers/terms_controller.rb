@@ -1,9 +1,9 @@
 class TermsController < ApplicationController
   #   before_action :set_tag, only: %i[show edit update destroy]
 
-  #   def index
-  #     @tags = Tag.all
-  #   end
+  def index
+    @terms = Term.all
+  end
 
   #   def show
   #     @articles = @tag.articles
@@ -25,6 +25,27 @@ class TermsController < ApplicationController
   #       end
   #     end
   #   end
+
+  def update_all
+    if params[:update_all_terms].present?
+      pre_counter = Term.all.count
+      tags = {}
+      @articles = Article.where(browsed: true)
+      @articles.each do |art|
+        article_terms = get_article_body_dictionary(art, 3)
+        terms = Hash[article_terms.sort_by { |_k, v| -v }[0..3]]
+        terms.each_key do |key|
+          @term = Term.find_or_initialize_by(name: key)
+          @term.save if @term.valid?
+        end
+      end
+      after_counter = Term.all.count - pre_counter
+
+      msg = "#{after_counter} new terms added."
+      redirect_to admin_path, notice: msg
+
+    end
+  end
 
   def update
     tags = {}
@@ -58,7 +79,7 @@ class TermsController < ApplicationController
   #   end
 
   def term_params
-    params.require(:term).permit(:article_id)
+    params.require(:term).permit(:article_id, :update_all_terms)
   end
 
   #   def tags_params

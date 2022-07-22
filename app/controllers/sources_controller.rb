@@ -10,6 +10,7 @@ class SourcesController < ApplicationController
 
   def scrape_sources
     reports = []
+    total_new = 0
     Source.all.each do |source|
       scrape_report = scrape_source(source)
       reports.push(scrape_report)
@@ -17,6 +18,7 @@ class SourcesController < ApplicationController
 
     # Reports of the scraping
     reports.each do |report|
+      total_new += report.saved
       puts "\n"
       pp "Source: #{report[:source_name]}"
       pp "Saved: #{report[:saved]}"
@@ -24,7 +26,8 @@ class SourcesController < ApplicationController
     end
 
     puts "\n"
-    redirect_to admin_path, notice: 'Sources scraping done.'
+    msg = "Scraping sources done. #{total_new} new articles added."
+    redirect_to admin_path, notice: msg
   end
 
   def show; end

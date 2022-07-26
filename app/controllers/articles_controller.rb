@@ -29,7 +29,6 @@ class ArticlesController < ApplicationController
     end
     @articles = if params[:query].present?
                   Article.search_all("#{params[:query]}")
-
                 else
                   Article.all.limit(10)
                 end

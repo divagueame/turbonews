@@ -81,3 +81,5 @@ end
 gem "chartkick", "~> 4.2"
 
 gem "groupdate", "~> 6.1"
+
+gem "pagy", "~> 5.10"

@@ -27,11 +27,14 @@ class ArticlesController < ApplicationController
         end
       end
     end
-    @articles = if params[:query].present?
-                  Article.search_all("#{params[:query]}")
-                else
-                  Article.all.limit(10)
-                end
+    #  @pagy, @records = pagy(Product.some_scope) =
+    @pagy, @articles = if params[:query].present?
+                         # @articles = if params[:query].present?
+                         Article.search_all("#{params[:query]}")
+                       else
+                         pagy(Article.all)
+                         # Article.all.limit(10)
+                       end
 
     if turbo_frame_request?
       render partial: 'articles', locals: { articles: @articles }

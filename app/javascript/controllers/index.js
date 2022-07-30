@@ -7,4 +7,5 @@ import { application } from "./application"
 import SearchFormController from "./search_form_controller.js"
 application.register("search-form", SearchFormController)
 
-
+import TurbomodalController from "./turbomodal_controller.js"
+application.register("turbomodal", TurbomodalController)

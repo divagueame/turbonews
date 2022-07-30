@@ -1,12 +1,16 @@
-<div class="container">
-<h1>New tag</h1>
+<%= turbo_frame_tag :modal do %>
+  <div data-controller="turbomodal" data-action="turbo:submit-end->turbomodal#submitEnd">
+    <div class="container">
+      <h1>New tag</h1>
 
-<%= render "form", tag: @tag %>
+      <%= render "form", tag: @tag %>
 
-<br>
+      <br>
 
-<div>
-  <%= link_to "Back to tags", tags_path, class: "btn-rounded " %>
-</div>
+      <div>
+        <%= link_to "Cancel", tags_path, class: "btn-rounded " %>
+      </div>
 
-</div>
+    </div>
+  </div>
+<% end %>

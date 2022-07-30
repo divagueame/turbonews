@@ -17,9 +17,13 @@ class TagsController < ApplicationController
 
   def create
     @tag = Tag.new(tag_params)
+
     respond_to do |format|
       if @tag.save
-        format.html { redirect_to tags_url, notice: 'Tag was successfully created.' }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.prepend('tags', partial: 'tags/tag', locals: { tag: @tag })
+        end
+        # format.html { redirect_to tags_url, notice: 'Tag was successfully created.' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end

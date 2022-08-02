@@ -17,10 +17,10 @@ class TagsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should create tag' do
     assert_difference('Tag.count') do
-      post tags_url, params: { tag: { name: 'cars' } }
+      post tags_url(format: :turbo_stream), params: { tag: { name: 'cars' } }
     end
 
-    assert_redirected_to tags_url
+    assert_response :success
   end
 
   test 'should show tag' do
